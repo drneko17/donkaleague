@@ -25,11 +25,42 @@ export type SummonerByIdType = {
 };
 
 export type FullSummonerDataType = {
-  id: string;
-  accountId: string;
-  puuid: string;
-  name: string;
-  profileIconId: number;
-  revisionDate: number;
-  summonerLevel: number;
+  summoner: {
+    id: string;
+    accountId: string;
+    puuid: string;
+    name: string;
+    profileIconId: number;
+    revisionDate: number;
+    summonerLevel: number;
+    tier: string;
+    rank: string;
+    lp: number;
+    wins: number;
+    losses: number;
+  };
+  matches: {
+    metadata: {
+      dataVersion: string;
+      matchId: string;
+      participants: string[];
+    };
+    info: {
+      gameCreation: number;
+      gameDuration: number;
+      gameEndTimestamp: number;
+      gameId: number;
+      gameMode: string;
+      gameName: string;
+      gameStartTimestamp: number;
+      gameType: string;
+      gameVersion: string;
+      mapId: number;
+      participants: string[];
+      platformId: string;
+      queueId: number;
+      teams: any[];
+      tournamentCode: string;
+    };
+  }[];
 };

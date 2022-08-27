@@ -19,7 +19,7 @@ const SearchForm: React.FC = () => {
     <>
       <form
         onSubmit={formSubmitHandler}
-        className="drop-shadow-xl bg-[#616283] px-8 rounded-lg flex  w-9/12 max-w-[800px]"
+        className="drop-shadow-xl bg-[#2F3D53] px-8 rounded-lg flex  w-9/12 max-w-[800px] text-[#F7F4F3]"
       >
         <div className="py-4 flex w-9/12 space-x-4">
           <div className="flex flex-col w-9/12">

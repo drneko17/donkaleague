@@ -1,12 +1,20 @@
 import { NextPage, GetServerSideProps } from "next";
+import MatchHistory from "../../../components/summoner-components/MatchHistory";
+import SummonerCard from "../../../components/summoner-components/SummonerCard";
 
 import useGetRegion from "../../../hooks/useGetRegion";
 import useGetSummonerData from "../../../hooks/useGetSummonerData";
+import { FullSummonerDataType } from "../../../types/summonerTypes";
 
-const SummonerProfile: NextPage<{}> = ({}) => {
+const SummonerProfile: NextPage<{ data: FullSummonerDataType }> = ({
+  data,
+}) => {
   return (
     <>
-      <div className="flex">Summoner Profile</div>
+      <div className="px-8 py-4 flex">
+        <SummonerCard data={data.summoner} />
+        <MatchHistory />
+      </div>
     </>
   );
 };
@@ -18,11 +26,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const region = useGetRegion(server);
 
   const data = await useGetSummonerData(server, summoner, region);
-  // console.log(data);
+  console.log(data);
 
   return {
     props: {
-      summonerData: {},
+      data,
     },
   };
 };
