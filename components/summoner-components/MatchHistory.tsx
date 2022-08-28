@@ -11,7 +11,12 @@ const MatchHistory: React.FC<{
 
   return (
     <>
-      <MatchTile match={matches[0]} userId={userId} />
+      <div className="flex flex-col">
+        {matches.map((match) => (
+          <MatchTile match={match} userId={userId} />
+        ))}
+        {/* <MatchTile match={matches[0]} userId={userId} /> */}
+      </div>
     </>
   );
 };

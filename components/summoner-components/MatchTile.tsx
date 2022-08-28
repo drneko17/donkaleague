@@ -26,7 +26,7 @@ const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
     lookedUpPlayer!.item5,
     lookedUpPlayer!.item6,
   ];
-  //   console.log(lookedUpPlayer);
+  console.log(lookedUpPlayer);
 
   let gameStatus: string = "";
   lookedUpPlayer!.win ? (gameStatus = "Victory") : (gameStatus = "Defeat");
@@ -91,7 +91,7 @@ const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
       </section>
 
       {/* TEAMS SECTION */}
-      <section className="hidden">
+      <section className="">
         <div className="flex">
           <div>
             {team1.map((participant) => (
