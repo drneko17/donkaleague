@@ -24,6 +24,48 @@ export type SummonerByIdType = {
   hotStreak: boolean;
 };
 
+export type MatchDataType = {
+  metadata: {
+    dataVersion: string;
+    matchId: string;
+    participants: string[];
+  };
+  info: {
+    gameCreation: number;
+    gameDuration: number;
+    gameEndTimestamp: number;
+    gameId: number;
+    gameMode: string;
+    gameName: string;
+    gameStartTimestamp: number;
+    gameType: string;
+    gameVersion: string;
+    mapId: number;
+    participants: {
+      championName: string;
+      summonerName: string;
+      puuid: string;
+      win: boolean;
+      item0: number;
+      item1: number;
+      item2: number;
+      item3: number;
+      item4: number;
+      item5: number;
+      item6: number;
+      assists: number;
+      deaths: number;
+      kills: number;
+      summoner1Id: number;
+      summoner2Id: number;
+    }[];
+    platformId: string;
+    queueId: number;
+    teams: any[];
+    tournamentCode: string;
+  };
+};
+
 export type FullSummonerDataType = {
   summoner: {
     id: string;
@@ -39,28 +81,5 @@ export type FullSummonerDataType = {
     wins: number;
     losses: number;
   };
-  matches: {
-    metadata: {
-      dataVersion: string;
-      matchId: string;
-      participants: string[];
-    };
-    info: {
-      gameCreation: number;
-      gameDuration: number;
-      gameEndTimestamp: number;
-      gameId: number;
-      gameMode: string;
-      gameName: string;
-      gameStartTimestamp: number;
-      gameType: string;
-      gameVersion: string;
-      mapId: number;
-      participants: string[];
-      platformId: string;
-      queueId: number;
-      teams: any[];
-      tournamentCode: string;
-    };
-  }[];
+  matches: MatchDataType[];
 };

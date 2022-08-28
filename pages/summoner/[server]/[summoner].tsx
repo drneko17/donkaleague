@@ -13,7 +13,7 @@ const SummonerProfile: NextPage<{ data: FullSummonerDataType }> = ({
     <>
       <div className="px-8 py-4 flex">
         <SummonerCard data={data.summoner} />
-        <MatchHistory />
+        <MatchHistory matches={data.matches} userId={data.summoner.puuid} />
       </div>
     </>
   );
@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const region = useGetRegion(server);
 
   const data = await useGetSummonerData(server, summoner, region);
-  console.log(data);
+  // console.log(data);
 
   return {
     props: {
