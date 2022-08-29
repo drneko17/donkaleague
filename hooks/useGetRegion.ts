@@ -1,6 +1,6 @@
-type getRegionType = (server: string | string[] | undefined) => string;
+type GetRegionType = (server: string | string[] | undefined) => string;
 
-const useGetRegion: getRegionType = (server) => {
+const useGetRegion: GetRegionType = (server) => {
   let realm: string;
   switch (server) {
     case "NA1":

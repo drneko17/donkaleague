@@ -1,21 +1,52 @@
 import formatUnicorn from "format-unicorn/safe";
 import Image from "next/image";
+import { useEffect, useState, useCallback } from "react";
 
 import { CHAMPION_ICON, ITEM_IMAGE } from "../../public/constants";
 import { MatchDataType } from "../../types/summonerTypes";
 import useGetSummonerSpellUrl from "../../hooks/useGetSummonerSpellUrl";
+import useGetRunesUrls from "../../hooks/useGetRunesUrls";
 
 const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
   match,
   userId,
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [primaryTree, setPrimaryTree] = useState({
+    styleUrl: "",
+    runesUrls: [],
+  });
+  const [secondaryTree, setSecondaryTree] = useState({
+    styleUrl: "",
+    runesUrls: [],
+  });
   //   console.log(match);
+
   const lookedUpPlayer = match.info.participants.find(
     (player) => player.puuid === userId
   );
 
+  const fetchRunesUrlsHandler = useCallback(async () => {
+    setIsLoading(true);
+
+    const resultPrimary = await useGetRunesUrls(
+      lookedUpPlayer!.perks.styles[0]
+    );
+    setPrimaryTree(resultPrimary);
+    const resultSecondary = await useGetRunesUrls(
+      lookedUpPlayer!.perks.styles[1]
+    );
+    setSecondaryTree(resultSecondary);
+  }, []);
+
+  useEffect(() => {
+    fetchRunesUrlsHandler();
+    setIsLoading(false);
+  }, [fetchRunesUrlsHandler]);
+
   const summonerSpell1Url = useGetSummonerSpellUrl(lookedUpPlayer!.summoner1Id);
   const summonerSpell2Url = useGetSummonerSpellUrl(lookedUpPlayer!.summoner2Id);
+  // console.log(lookedUpPlayer!.perks);
 
   const lookedUpPlayerItems = [
     lookedUpPlayer!.item0,
@@ -26,9 +57,9 @@ const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
     lookedUpPlayer!.item5,
     lookedUpPlayer!.item6,
   ];
-  console.log(lookedUpPlayer);
+  // console.log(lookedUpPlayer);
 
-  let gameStatus: string = "";
+  let gameStatus: string;
   lookedUpPlayer!.win ? (gameStatus = "Victory") : (gameStatus = "Defeat");
 
   const team1 = match.info.participants.slice(0, 5);
@@ -52,31 +83,56 @@ const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
         <div>{gameDuration}</div>
       </section>
       {/* PLAYER SECTION */}
-      <section className="flex flex-col">
-        <Image
-          src={formatUnicorn(CHAMPION_ICON, {
-            champion: lookedUpPlayer!.championName,
-          })}
-          width={64}
-          height={64}
-          className="rounded-full"
-        />
-        <Image
-          src={summonerSpell1Url}
-          width={32}
-          height={32}
-          className="rounded-xl"
-        />
-        <Image
-          src={summonerSpell2Url}
-          width={32}
-          height={32}
-          className="rounded-xl"
-        />
-        <div>
-          <div>{lookedUpPlayer!.kills}</div>
-          <div>{lookedUpPlayer!.deaths}</div>
-          <div>{lookedUpPlayer!.assists}</div>
+
+      <section className="flex flex-col w-96">
+        <div className="flex w-48">
+          <Image
+            src={formatUnicorn(CHAMPION_ICON, {
+              champion: lookedUpPlayer!.championName,
+            })}
+            width={64}
+            height={64}
+            className="rounded-full"
+            layout="fixed"
+          />
+          <div className="flex flex-col">
+            <Image
+              src={summonerSpell1Url}
+              width={32}
+              height={32}
+              className="rounded-xl"
+              layout="fixed"
+            />
+            <Image
+              src={summonerSpell2Url}
+              width={32}
+              height={32}
+              className="rounded-xl"
+              layout="fixed"
+            />
+          </div>
+          <div className="flex flex-col">
+            <Image
+              src={`https://ddragon.canisback.com/img/${primaryTree.runesUrls[0]}`}
+              width={32}
+              height={32}
+              className="rounded-xl"
+              layout="fixed"
+            />
+
+            <Image
+              src={`https://ddragon.canisback.com/img/${secondaryTree.styleUrl}`}
+              width={32}
+              height={32}
+              className="rounded-xl"
+              layout="fixed"
+            />
+          </div>
+          <div>
+            <div>{lookedUpPlayer!.kills}</div>
+            <div>{lookedUpPlayer!.deaths}</div>
+            <div>{lookedUpPlayer!.assists}</div>
+          </div>
         </div>
         <div>
           {lookedUpPlayerItems.map((item) => (
@@ -91,7 +147,7 @@ const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
       </section>
 
       {/* TEAMS SECTION */}
-      <section className="">
+      {/* <section className="">
         <div className="flex">
           <div>
             {team1.map((participant) => (
@@ -122,7 +178,7 @@ const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

@@ -21,13 +21,13 @@ const headersConfig = {
   "X-Riot-Token": `${process.env.RIOT_API_KEY}`,
 };
 
-type getSummonerDataType = (
+type GetSummonerDataType = (
   server: string | string[] | undefined,
   summoner: string | string[] | undefined,
   region: string | string[] | undefined
 ) => Promise<FullSummonerDataType>;
 
-const useGetSummonerData: getSummonerDataType = async (
+const useGetSummonerData: GetSummonerDataType = async (
   server,
   summoner,
   region
@@ -71,7 +71,7 @@ const useGetSummonerData: getSummonerDataType = async (
   );
 
   const matchesData: string[] = await matchesResponse.json();
-  const twoMatches: string[] = matchesData.slice(0, 2);
+  const twoMatches: string[] = matchesData.slice(0, 1);
   //GET MATCH DETAILS BY MATCH ID
   let matchDetailsArr: any[] = [];
 

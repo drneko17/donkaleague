@@ -1,6 +1,6 @@
-type getSummonerSpellUrl = (summonerId: number) => string;
+type GetSummonerSpellUrlType = (summonerId: number) => string;
 
-const useGetSummonerSpellUrl: getSummonerSpellUrl = (summonerId) => {
+const useGetSummonerSpellUrl: GetSummonerSpellUrlType = (summonerId) => {
   let summonerUrl: string;
 
   switch (summonerId) {

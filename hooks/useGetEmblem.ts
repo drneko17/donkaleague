@@ -1,6 +1,6 @@
-type getEmblem = (tier: string | string[] | undefined) => string;
+type GetEmblemType = (tier: string | string[] | undefined) => string;
 
-const useGetEmblem: getEmblem = (tier) => {
+const useGetEmblem: GetEmblemType = (tier) => {
   let emblemUrl: string;
 
   switch (tier) {

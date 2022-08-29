@@ -1,5 +1,5 @@
 export const ITEMS_URL: string =
-  "http://ddragon.leagueoflegends.com/cdn/12.13.1/data/en_US/item.json";
+  "http://ddragon.leagueoflegends.com/cdn/12.16.1/data/en_US/item.json";
 
 export const ITEM_IMAGE: string =
   "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/{item}.png";
@@ -27,3 +27,9 @@ export const MATCH_BY_MATCH_ID: string =
 
 export const CHAMPION_ICON: string =
   "https://ddragon.leagueoflegends.com/cdn/12.16.1/img/champion/{champion}.png";
+
+export const RUNE_IMAGE: string =
+  "https://ddragon.canisback.com/img/perk-images/";
+
+export const RUNES_DATA: string =
+  "https://ddragon.leagueoflegends.com/cdn/12.16.1/data/en_US/runesReforged.json";
