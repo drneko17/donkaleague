@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
         </nav>
       </SideDrawer>
 
-      <nav className="flex fixed bg-[#0E1116] w-full h-16 items-center">
+      <nav className="flex fixed bg-[#0E1116] w-full h-16 items-center z-10">
         {/* logo section */}
         <section className="w-3/12">
           <Link href="/">

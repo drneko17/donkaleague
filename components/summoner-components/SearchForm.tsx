@@ -1,14 +1,18 @@
 import { useRouter } from "next/router";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 
+import Loading from "../shared/Loading";
+
 const SearchForm: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const summonerNameRef = useRef<HTMLInputElement>(null);
   const serverRef = useRef<HTMLSelectElement>(null);
 
   const formSubmitHandler = (e: React.FormEvent) => {
+    setIsLoading(true);
     e.preventDefault();
     const name = summonerNameRef.current!.value;
     const server = serverRef.current!.value;
@@ -86,6 +90,7 @@ const SearchForm: React.FC = () => {
           <Image src="/monkabus.png" height={72} width={99} />
         </button>
       </form>
+      {isLoading ? <Loading /> : ""}
     </>
   );
 };

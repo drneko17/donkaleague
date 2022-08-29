@@ -19,14 +19,17 @@ const SummonerCard: React.FC<{
     wins: number;
     losses: number;
   };
-}> = ({ data }) => {
+  classes: string;
+}> = ({ data, classes }) => {
   const emblemUrl = useGetEmblem(data.tier);
   const pfpUrl = formatUnicorn(PROFILE_IMAGE, { iconId: data.profileIconId });
   const winRatio = (data.wins / (data.losses + data.wins)) * 100;
 
   return (
     <>
-      <div className="drop-shadow-lg rounded-xl bg-[#2F3D53] flex flex-col items-center w-48 py-4 spaceBetweenMonka">
+      <div
+        className={`drop-shadow-lg rounded-xl bg-[#2F3D53] flex flex-col items-center w-48 h-[440px] py-4 ${classes}`}
+      >
         <div className="text-center drop-shadow-lg text-[#F7F4F3]">
           <h1 className="font-bold text-[#F7F4F3] text-2xl">{data.name}</h1>
           <div className="h-32 flex justify-center text-[#F7F4F3] bg items-end my-4">

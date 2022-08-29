@@ -11,9 +11,15 @@ const SummonerProfile: NextPage<{ data: FullSummonerDataType }> = ({
 }) => {
   return (
     <>
-      <div className="px-8 py-4 flex">
-        <SummonerCard data={data.summoner} />
-        <MatchHistory matches={data.matches} userId={data.summoner.puuid} />
+      <div className="px-8 py-4">
+        <SummonerCard data={data.summoner} classes="fixed" />
+        <div className="flex justify-center ml-12">
+          <MatchHistory
+            matches={data.matches}
+            userId={data.summoner.puuid}
+            classes=""
+          />
+        </div>
       </div>
     </>
   );
