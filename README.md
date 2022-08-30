@@ -11,7 +11,7 @@ npm i
 Generate your own RIOT development api key [here](https://developer.riotgames.com/) and put it into your .env.local file like this:
 
 ```
-RIOT_API_KEY=RGAPI-1d0272fc-f4c3-4e24-9915-09a9831b2f37
+RIOT_API_KEY="YOUR GENERATED KEY"
 ```
 
 Now you are all set and you can start the development sever:
