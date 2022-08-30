@@ -1,18 +1,20 @@
 import formatUnicorn from "format-unicorn/safe";
 import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import date from "date-and-time";
 
 import { CHAMPION_ICON, ITEM_IMAGE } from "../../public/constants";
 import { MatchDataType } from "../../types/summonerTypes";
 import useGetSummonerSpellUrl from "../../hooks/useGetSummonerSpellUrl";
 import useGetRunesUrls from "../../hooks/useGetRunesUrls";
+import Loading from "../shared/Loading";
 
-const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
-  match,
-  userId,
-}) => {
-  const [isLoading, setIsLoading] = useState(true);
+const MatchTile: React.FC<{
+  match: MatchDataType;
+  userId: string;
+  server: string;
+}> = ({ match, userId, server }) => {
   const [primaryTree, setPrimaryTree] = useState({
     styleUrl: "",
     runesUrls: [],
@@ -28,8 +30,6 @@ const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
   );
 
   const fetchRunesUrlsHandler = useCallback(async () => {
-    setIsLoading(true);
-
     const resultPrimary: any = await useGetRunesUrls(
       lookedUpPlayer!.perks.styles[0]
     );
@@ -42,7 +42,6 @@ const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
 
   useEffect(() => {
     fetchRunesUrlsHandler();
-    setIsLoading(false);
   }, [fetchRunesUrlsHandler]);
 
   const summonerSpell1Url = useGetSummonerSpellUrl(lookedUpPlayer!.summoner1Id);
@@ -68,8 +67,6 @@ const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
 
   const creationDate = new Date(match.info.gameCreation);
   const readableCreationDate = creationDate.toLocaleString();
-
-  const formattedCreationDate = date.format(creationDate, "HH:mm:ss");
 
   const gameDuration = `${Math.floor(match.info.gameDuration / 60)}m ${
     match.info.gameDuration % 60
@@ -193,7 +190,11 @@ const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
                   layout="fixed"
                   className="rounded-full"
                 />
-                <div>{participant.summonerName}</div>
+                <Link href={`/summoner/${server}/${participant.summonerName}`}>
+                  <div className="hover:underline hover:cursor-pointer">
+                    {participant.summonerName}
+                  </div>
+                </Link>
               </div>
             ))}
           </div>
@@ -214,7 +215,11 @@ const MatchTile: React.FC<{ match: MatchDataType; userId: string }> = ({
                   layout="fixed"
                   className="rounded-full"
                 />
-                <div>{participant.summonerName}</div>
+                <Link href={`/summoner/${server}/${participant.summonerName}`}>
+                  <div className="hover:underline hover:cursor-pointer">
+                    {participant.summonerName}
+                  </div>
+                </Link>
               </div>
             ))}
           </div>

@@ -1,29 +1,25 @@
 type GetRegionType = (server: string | string[] | undefined) => string;
 
 const useGetRegion: GetRegionType = (server) => {
-  let realm: string;
   switch (server) {
     case "NA1":
     case "LA1":
     case "LA2":
     case "BR1":
-      realm = "amreicas";
-      break;
+      return "amreicas";
     case "EUN1":
     case "EUW1":
     case "TR1":
     case "RU":
-      realm = "europe";
-      break;
+      return "europe";
     case "JP1":
     case "KR":
-      realm = "asia";
-      break;
+      return "asia";
     case "OC1":
-      realm = "SEA";
-      break;
+      return "SEA";
+    default:
+      return "europe";
   }
-  return realm!;
 };
 
 export default useGetRegion;

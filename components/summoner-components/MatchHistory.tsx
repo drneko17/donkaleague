@@ -6,10 +6,8 @@ const MatchHistory: React.FC<{
   matches: MatchDataType[];
   userId: string;
   classes: string;
-}> = ({ matches, userId, classes }) => {
-  // console.log(matches);
-  // console.log(matches[0]);
-
+  server: string;
+}> = ({ matches, userId, classes, server }) => {
   return (
     <>
       <div className={`flex flex-col w-[72rem] mx-4 ${classes}`}>
@@ -18,6 +16,7 @@ const MatchHistory: React.FC<{
             match={match}
             userId={userId}
             key={match.metadata.matchId}
+            server={server}
           />
         ))}
         {/* <MatchTile match={matches[0]} userId={userId} /> */}

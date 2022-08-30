@@ -6,15 +6,17 @@ import useGetRegion from "../../../hooks/useGetRegion";
 import useGetSummonerData from "../../../hooks/useGetSummonerData";
 import { FullSummonerDataType } from "../../../types/summonerTypes";
 
-const SummonerProfile: NextPage<{ data: FullSummonerDataType }> = ({
-  data,
-}) => {
+const SummonerProfile: NextPage<{
+  data: FullSummonerDataType;
+  server: string;
+}> = ({ data, server }) => {
   return (
     <>
       <div className="px-8 py-4">
         <SummonerCard data={data.summoner} classes="fixed" />
         <div className="flex justify-center ml-12">
           <MatchHistory
+            server={server}
             matches={data.matches}
             userId={data.summoner.puuid}
             classes=""
@@ -37,6 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       data,
+      server,
     },
   };
 };
