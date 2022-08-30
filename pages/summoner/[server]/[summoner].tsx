@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const region = useGetRegion(server);
 
   const data = await useGetSummonerData(server, summoner, region);
-  // console.log(data);
+  console.log(data.summoner);
 
   return {
     props: {

@@ -6,7 +6,7 @@ import { PROFILE_IMAGE } from "../../public/constants";
 
 const SummonerCard: React.FC<{
   data: {
-    id: string;
+    id: string; // IS USED TO FETCH LIVE GAME
     accountId: string;
     puuid: string;
     name: string;
