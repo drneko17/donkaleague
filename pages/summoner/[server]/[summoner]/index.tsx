@@ -1,10 +1,10 @@
 import { NextPage, GetServerSideProps } from "next";
-import MatchHistory from "../../../components/summoner-components/MatchHistory";
-import SummonerCard from "../../../components/summoner-components/SummonerCard";
+import MatchHistory from "../../../../components/summoner-components/MatchHistory";
+import SummonerCard from "../../../../components/summoner-components/SummonerCard";
 
-import useGetRegion from "../../../hooks/useGetRegion";
-import useGetSummonerData from "../../../hooks/useGetSummonerData";
-import { FullSummonerDataType } from "../../../types/summonerTypes";
+import useGetRegion from "../../../../hooks/useGetRegion";
+import useGetSummonerData from "../../../../hooks/useGetSummonerData";
+import { FullSummonerDataType } from "../../../../types/summonerTypes";
 
 const SummonerProfile: NextPage<{
   data: FullSummonerDataType;
@@ -14,7 +14,7 @@ const SummonerProfile: NextPage<{
     <>
       <div className="px-8 py-4">
         <SummonerCard data={data.summoner} classes="fixed" />
-        <div className="flex justify-center ml-12">
+        <div className="flex justify-center ml-[15%]">
           <MatchHistory
             server={server}
             matches={data.matches}

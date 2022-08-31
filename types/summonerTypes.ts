@@ -100,3 +100,38 @@ export type FullSummonerDataType = {
   };
   matches: MatchDataType[];
 };
+
+export type LiveMatchType = {
+  gameId: number;
+  mapId: number;
+  gameMode: string;
+  gameType: string;
+  gameQueueConfigId: number;
+  participants: {
+    teamId: number;
+    spell1Id: number;
+    spell2Id: number;
+    championId: number;
+    profileIconId: number;
+    summonerName: string;
+    bot: boolean;
+    summonerId: string;
+    gameCustomizationObjects: any[];
+    perks: {
+      perkIds: string[];
+      perkStyle: number;
+      perkSubStyle: number;
+    };
+  }[];
+  observers: {
+    encryptionKey: string;
+  };
+  platformId: string;
+  bannedChampions: {
+    championId: number;
+    teamId: number;
+    pickTurn: number;
+  }[];
+  gameStartTime: number;
+  gameLength: number;
+};

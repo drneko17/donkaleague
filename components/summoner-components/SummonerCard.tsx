@@ -24,6 +24,7 @@ const SummonerCard: React.FC<{
   const emblemUrl = useGetEmblem(data.tier);
   const pfpUrl = formatUnicorn(PROFILE_IMAGE, { iconId: data.profileIconId });
   const winRatio = (data.wins / (data.losses + data.wins)) * 100;
+  console.log(data.id);
 
   return (
     <>

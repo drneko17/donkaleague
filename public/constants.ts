@@ -33,3 +33,6 @@ export const RUNE_IMAGE: string =
 
 export const RUNES_DATA: string =
   "https://ddragon.leagueoflegends.com/cdn/12.16.1/data/en_US/runesReforged.json";
+
+export const LIVE_GAME: string =
+  "https://{server}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/{summonerId}";
