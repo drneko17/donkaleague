@@ -71,7 +71,7 @@ const useGetSummonerData: GetSummonerDataType = async (
   );
 
   const matchesData: string[] = await matchesResponse.json();
-  const twoMatches: string[] = matchesData.slice(0, 4);
+  const twoMatches: string[] = matchesData.slice(0, 2);
   //GET MATCH DETAILS BY MATCH ID
   let matchDetailsArr: any[] = [];
 

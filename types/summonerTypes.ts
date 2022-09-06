@@ -101,28 +101,30 @@ export type FullSummonerDataType = {
   matches: MatchDataType[];
 };
 
+export type LiveMatchParticipantType = {
+  teamId: number;
+  spell1Id: number;
+  spell2Id: number;
+  championId: number;
+  profileIconId: number;
+  summonerName: string;
+  bot: boolean;
+  summonerId: string;
+  gameCustomizationObjects: any[];
+  perks: {
+    perkIds: string[];
+    perkStyle: number;
+    perkSubStyle: number;
+  };
+};
+
 export type LiveMatchType = {
   gameId: number;
   mapId: number;
   gameMode: string;
   gameType: string;
   gameQueueConfigId: number;
-  participants: {
-    teamId: number;
-    spell1Id: number;
-    spell2Id: number;
-    championId: number;
-    profileIconId: number;
-    summonerName: string;
-    bot: boolean;
-    summonerId: string;
-    gameCustomizationObjects: any[];
-    perks: {
-      perkIds: string[];
-      perkStyle: number;
-      perkSubStyle: number;
-    };
-  }[];
+  participants: LiveMatchParticipantType[];
   observers: {
     encryptionKey: string;
   };
@@ -134,4 +136,23 @@ export type LiveMatchType = {
   }[];
   gameStartTime: number;
   gameLength: number;
+};
+
+export type RuneType = {
+  icon: string;
+  id: number;
+  key: string;
+  longDesc: string;
+  name: string;
+  shortDesc: string;
+}[];
+
+export type RuneDataType = {
+  icon: string;
+  id: number;
+  key: string;
+  name: string;
+  slots: {
+    runes: RuneType[];
+  };
 };

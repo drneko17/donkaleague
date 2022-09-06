@@ -1,38 +1,28 @@
 type GetEmblemType = (tier: string | string[] | undefined) => string;
 
 const useGetEmblem: GetEmblemType = (tier) => {
-  let emblemUrl: string;
-
   switch (tier) {
     case "IRON":
-      emblemUrl = "/ranked-emblems/Emblem_Iron.png";
-      break;
+      return "/ranked-emblems/Emblem_Iron.png";
     case "BRONZE":
-      emblemUrl = "/ranked-emblems/Emblem_Bronze.png";
-      break;
+      return "/ranked-emblems/Emblem_Bronze.png";
     case "SILVER":
-      emblemUrl = "/ranked-emblems/Emblem_Silver.png";
-      break;
+      return "/ranked-emblems/Emblem_Silver.png";
     case "GOLD":
-      emblemUrl = "/ranked-emblems/Emblem_Gold.png";
-      break;
+      return "/ranked-emblems/Emblem_Gold.png";
     case "PLATINUM":
-      emblemUrl = "/ranked-emblems/Emblem_Platinum.png";
-      break;
+      return "/ranked-emblems/Emblem_Platinum.png";
     case "DIAMOND":
-      emblemUrl = "/ranked-emblems/Emblem_Diamond.png";
-      break;
+      return "/ranked-emblems/Emblem_Diamond.png";
     case "MASTER":
-      emblemUrl = "/ranked-emblems/Emblem_Master.png";
-      break;
+      return "/ranked-emblems/Emblem_Master.png";
     case "GRANDMASTER":
-      emblemUrl = "/ranked-emblems/Emblem_Grandmaster.png";
-      break;
+      return "/ranked-emblems/Emblem_Grandmaster.png";
     case "CHALLENGER":
-      emblemUrl = "/ranked-emblems/Emblem_Challenger.png";
-      break;
+      return "/ranked-emblems/Emblem_Challenger.png";
+    default:
+      return "/ranked-emblems/Emblem_Iron.png";
   }
-  return emblemUrl!;
 };
 
 export default useGetEmblem;

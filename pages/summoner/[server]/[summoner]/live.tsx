@@ -1,7 +1,10 @@
 import { GetServerSideProps, NextPage } from "next";
+import { useRouter } from "next/router";
+import useGetRegion from "../../../../hooks/useGetRegion";
 
 import formatUnicorn from "format-unicorn/safe";
 
+import LiveGameSummonerTile from "../../../../components/live-game/LiveGameSummonerTile";
 import {
   SummonerByNameType,
   LiveMatchType,
@@ -17,14 +20,41 @@ const headersConfig = {
   "X-Riot-Token": `${process.env.RIOT_API_KEY}`,
 };
 
-const LiveGame: NextPage<{ summoner: string; liveGameData: any }> = ({
-  summoner,
-  liveGameData,
-}) => {
+const LiveGame: NextPage<{
+  summoner: string;
+  liveMatchData: LiveMatchType;
+}> = ({ summoner, liveMatchData }) => {
+  const router = useRouter();
+  const region = useGetRegion(router.query.server);
+  // console.log(liveMatchData);
+
+  const team1 = liveMatchData.participants.slice(0, 5); //set back to slice(0, 5)
+  const team2 = liveMatchData.participants.slice(5, 10);
+  // console.log(team1);
+
+  const teamClasses = "flex space-x-4 drop-shadow-2xl";
   return (
-    <>
+    <div className="p-4 flex flex-col items-center">
       <div>Live game of {summoner}</div>
-    </>
+      <div className={`${teamClasses}`}>
+        {team1.map((participant) => (
+          <LiveGameSummonerTile
+            classes="bg-[rgba(12,79,117,0.75)] text-[#F7F4F3]"
+            data={participant}
+            key={participant.summonerId}
+          />
+        ))}
+      </div>
+      <div className={`${teamClasses} mt-4`}>
+        {team2.map((participant) => (
+          <LiveGameSummonerTile
+            classes="bg-[rgba(117,12,66,0.75)] text-[#F7F4F3]"
+            data={participant}
+            key={participant.summonerId}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 
@@ -54,7 +84,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
 
   const liveMatchData: LiveMatchType = await liveMatchResponse.json();
-  console.log(liveMatchData);
+  // console.log(liveMatchData);
 
   return {
     props: {

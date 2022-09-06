@@ -23,7 +23,6 @@ const MatchTile: React.FC<{
     styleUrl: "",
     runesUrls: [],
   });
-  //   console.log(match);
 
   const lookedUpPlayer = match.info.participants.find(
     (player) => player.puuid === userId
@@ -46,7 +45,6 @@ const MatchTile: React.FC<{
 
   const summonerSpell1Url = useGetSummonerSpellUrl(lookedUpPlayer!.summoner1Id);
   const summonerSpell2Url = useGetSummonerSpellUrl(lookedUpPlayer!.summoner2Id);
-  // console.log(lookedUpPlayer!.perks);
 
   const lookedUpPlayerItems = [
     lookedUpPlayer!.item0,
@@ -57,7 +55,6 @@ const MatchTile: React.FC<{
     lookedUpPlayer!.item5,
     lookedUpPlayer!.item6,
   ];
-  // console.log(lookedUpPlayer);
 
   let gameStatus: string;
   lookedUpPlayer!.win ? (gameStatus = "Victory") : (gameStatus = "Defeat");
@@ -71,6 +68,8 @@ const MatchTile: React.FC<{
   const gameDuration = `${Math.floor(match.info.gameDuration / 60)}m ${
     match.info.gameDuration % 60
   }s`;
+
+  console.log(primaryTree);
 
   return (
     <div

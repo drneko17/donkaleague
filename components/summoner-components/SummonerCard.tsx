@@ -1,5 +1,7 @@
 import Image from "next/image";
 import formatUnicorn from "format-unicorn/safe";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 import useGetEmblem from "../../hooks/useGetEmblem";
 import { PROFILE_IMAGE } from "../../public/constants";
@@ -20,16 +22,22 @@ const SummonerCard: React.FC<{
     losses: number;
   };
   classes: string;
-}> = ({ data, classes }) => {
+  isLive: boolean;
+}> = ({ data, classes, isLive }) => {
+  const router = useRouter();
+  const { summoner, server } = router.query;
   const emblemUrl = useGetEmblem(data.tier);
   const pfpUrl = formatUnicorn(PROFILE_IMAGE, { iconId: data.profileIconId });
   const winRatio = (data.wins / (data.losses + data.wins)) * 100;
   console.log(data.id);
 
+  const liveGameClasses = isLive
+    ? "bg-[rgb(12,79,117)]"
+    : "bg-[#374a67] cursor-not-allowed text-slate-400";
   return (
     <>
       <div
-        className={`drop-shadow-lg rounded-xl bg-[#2F3D53] flex flex-col items-center w-48 h-[440px] py-4 ${classes}`}
+        className={`drop-shadow-lg rounded-xl bg-[#2F3D53] flex flex-col items-center w-48 h-[500px] py-4 ${classes}`}
       >
         <div className="text-center drop-shadow-lg text-[#F7F4F3]">
           <h1 className="font-bold text-[#F7F4F3] text-2xl">{data.name}</h1>
@@ -52,6 +60,14 @@ const SummonerCard: React.FC<{
             {data.wins}W/{data.losses}L
           </div>
           <div className="">{winRatio.toFixed(2)}% win ratio</div>
+          <Link href={`/summoner/${server}/${summoner}/live`}>
+            <button
+              disabled={!isLive}
+              className={`rounded-xl p-3 mt-2 ${liveGameClasses}`}
+            >
+              Live Game
+            </button>
+          </Link>
         </div>
       </div>
     </>
