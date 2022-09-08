@@ -145,7 +145,7 @@ export type RuneType = {
   longDesc: string;
   name: string;
   shortDesc: string;
-}[];
+};
 
 export type RuneDataType = {
   icon: string;

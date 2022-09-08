@@ -1,9 +1,7 @@
 import { RUNES_DATA } from "../public/constants";
 import { RuneDataType, RuneType } from "../types/summonerTypes";
 
-type GetRunesByIdArray = (
-  runeIds: number[] | string[]
-) => Promise<{ result: RuneType[] }>;
+type GetRunesByIdArray = (runeIds: number[] | string[]) => Promise<RuneType[]>;
 
 const useGetRunesByIdArray: GetRunesByIdArray = async (runeIds) => {
   let runes: {
@@ -42,7 +40,7 @@ const useGetRunesByIdArray: GetRunesByIdArray = async (runeIds) => {
       runes.runes.push(...runeLine.runes);
     }
   }
-  let result = [];
+  let result: RuneType[] = [];
   for (const playerRune of runeIds) {
     const foundRune = runes.runes.find((rune) => rune.id == playerRune);
     if (foundRune) {

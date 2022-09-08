@@ -8,6 +8,7 @@ import Link from "next/link";
 import {
   LiveMatchParticipantType,
   SummonerByIdType,
+  RuneType,
 } from "../../types/summonerTypes";
 import useGetRunesByIdArray from "../../hooks/useGetRunesByIdArray";
 import useGetEmblem from "../../hooks/useGetEmblem";
@@ -22,7 +23,16 @@ const LiveGameSummonerTile: React.FC<{
 
   const [championIcon, setChampionIcon] = useState("");
   const [emblemUrl, setEmblemUrl] = useState("");
-  const [runes, setRunes] = useState([]);
+  const [runes, setRunes] = useState([
+    {
+      icon: "",
+      id: 0,
+      key: "",
+      longDesc: "",
+      name: "",
+      shortDesc: "",
+    },
+  ]);
   const [thisSummonerData, setThisSummonerData] = useState({
     leagueId: "",
     queueType: "",
