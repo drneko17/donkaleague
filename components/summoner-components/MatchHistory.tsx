@@ -10,7 +10,7 @@ const MatchHistory: React.FC<{
 }> = ({ matches, userId, classes, server }) => {
   return (
     <>
-      <div className={`flex flex-col w-[72rem] mx-4 ${classes}`}>
+      <div className={`flex flex-col ${classes}`}>
         {matches.map((match) => (
           <MatchTile
             match={match}
@@ -19,7 +19,6 @@ const MatchHistory: React.FC<{
             server={server}
           />
         ))}
-        {/* <MatchTile match={matches[0]} userId={userId} /> */}
       </div>
     </>
   );

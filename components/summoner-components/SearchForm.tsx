@@ -23,9 +23,9 @@ const SearchForm: React.FC = () => {
     <>
       <form
         onSubmit={formSubmitHandler}
-        className="drop-shadow-xl bg-[#2F3D53] px-8 rounded-lg flex  w-9/12 max-w-[800px] text-[#F7F4F3]"
+        className="md:flex-row flex-col items-center drop-shadow-xl bg-[#2F3D53] md:px-8 rounded-lg flex w-9/12 max-w-[800px] text-[#F7F4F3]"
       >
-        <div className="py-4 flex w-9/12 space-x-4">
+        <div className="md:flex-row flex-col py-4 flex w-full md:w-9/12 space-x-4 items-center md:text-left text-center">
           <div className="flex flex-col w-9/12">
             <label htmlFor="summonerName" className="text-lg">
               Search
@@ -35,7 +35,7 @@ const SearchForm: React.FC = () => {
               id="summonerName"
               placeholder="Summoner..."
               ref={summonerNameRef}
-              className="border-none outline-none bg-transparent"
+              className="border-none outline-none md:bg-transparent bg-[#374a67] md:rounded-none rounded-md p-2 md:p-0"
             ></input>
           </div>
           <div className="flex flex-col w-3/12">
@@ -47,22 +47,25 @@ const SearchForm: React.FC = () => {
                 id="server"
                 name="server"
                 ref={serverRef}
-                className="bg-transparent border-none outline-none"
+                className="rounded-md md:rounded-none p-2 md:p-0 bg-[#374a67] md:bg-transparent border-none outline-none"
               >
-                <option value="BR1" className="bg-[#616283]">
-                  BR1
+                <option value="EUW1" className="bg-[#616283]">
+                  EUW
                 </option>
                 <option value="EUN1" className="bg-[#616283]">
-                  EUN1
-                </option>
-                <option value="EUW1" className="bg-[#616283]">
-                  EUW1
-                </option>
-                <option value="JP1" className="bg-[#616283]">
-                  JP1
+                  EUNE
                 </option>
                 <option value="KR" className="bg-[#616283]">
                   KR
+                </option>
+                <option value="NA1" className="bg-[#616283]">
+                  NA
+                </option>
+                <option value="BR1" className="bg-[#616283]">
+                  BR
+                </option>
+                <option value="JP1" className="bg-[#616283]">
+                  JP
                 </option>
                 <option value="LA1" className="bg-[#616283]">
                   LA1
@@ -70,17 +73,14 @@ const SearchForm: React.FC = () => {
                 <option value="LA2" className="bg-[#616283]">
                   LA2
                 </option>
-                <option value="NA1" className="bg-[#616283]">
-                  NA1
-                </option>
                 <option value="OC1" className="bg-[#616283]">
-                  OC1
+                  OCE
                 </option>
                 <option value="RU" className="bg-[#616283]">
                   RU
                 </option>
                 <option value="TR1" className="bg-[#616283]">
-                  TR1
+                  TR
                 </option>
               </select>
             </div>
@@ -91,6 +91,7 @@ const SearchForm: React.FC = () => {
         </button>
       </form>
       {isLoading ? <Loading /> : ""}
+      {/* <Loading /> */}
     </>
   );
 };

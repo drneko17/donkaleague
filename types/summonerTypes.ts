@@ -154,5 +154,5 @@ export type RuneDataType = {
   name: string;
   slots: {
     runes: RuneType[];
-  };
+  }[];
 };

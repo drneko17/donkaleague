@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Loading: React.FC = () => {
   return (
-    <>
+    <div>
       <div className="h-[300px] rotate">
         <Image src="/monkabus.png" height={100} width={137.5} />
         <div className=" h-[100px] w-[137.5px] text-center flex">
@@ -17,10 +17,10 @@ const Loading: React.FC = () => {
         </div>
         <div className="h-[100px] w-[137.5px] text-center"></div>
       </div>
-      <div className="fixed z-10 mt-[435px] font-black text-[#F7F4F3]">
+      <div className="mt-[-154px] text-center z-10 font-black text-[#F7F4F3]">
         Loading...
       </div>
-    </>
+    </div>
   );
 };
 

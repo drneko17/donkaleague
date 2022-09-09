@@ -22,6 +22,10 @@ const headersConfig = {
   "X-Riot-Token": `${process.env.RIOT_API_KEY}`,
 };
 
+// xl:block flex w-[90%] xl:w-48 h-[268px] xl:h-[500px] p-8 xl:py-4 xl:px-0
+
+// w-[100vw] xl:w-[72rem] flex justify-center ml-[15%]
+
 const SummonerProfile: NextPage<{
   data: FullSummonerDataType;
   server: string;
@@ -29,16 +33,18 @@ const SummonerProfile: NextPage<{
 }> = ({ data, server, isLive }) => {
   return (
     <>
-      <div className="px-8 py-4">
-        <SummonerCard data={data.summoner} classes="fixed" isLive={isLive} />
-        <div className="flex justify-center ml-[15%]">
-          <MatchHistory
-            server={server}
-            matches={data.matches}
-            userId={data.summoner.puuid}
-            classes=""
-          />
-        </div>
+      <div className="px-8 py-4 flex xl:flex-row flex-col w-full">
+        <SummonerCard
+          data={data.summoner}
+          classes="w-[100%] xl:w-48 xl:min-w-[12rem] xl:h-[500px] mb-4 xl:mb-0 h-44 p-4 xl:py-4 xl:px-0 flex xl:block"
+          isLive={isLive}
+        />
+        <MatchHistory
+          server={server}
+          matches={data.matches}
+          userId={data.summoner.puuid}
+          classes="w-full xl:mx-4"
+        />
       </div>
     </>
   );

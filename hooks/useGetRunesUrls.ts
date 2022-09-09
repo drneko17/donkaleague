@@ -17,7 +17,6 @@ type GetRunesUrlsType = (runeObject: {
 const useGetRunesUrls: GetRunesUrlsType = async (runeObject) => {
   const runesResponse = await fetch(RUNES_DATA);
   const runesData = await runesResponse.json();
-
   const style = runesData.find((item: any) => item.id === runeObject.style);
 
   let allRunes: any[] = [

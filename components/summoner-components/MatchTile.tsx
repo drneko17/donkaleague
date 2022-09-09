@@ -73,7 +73,7 @@ const MatchTile: React.FC<{
 
   return (
     <div
-      className={`flex p-2 mb-4 rounded-2xl drop-shadow-lg text-[#F7F4F3] ${
+      className={`flex items-center p-2 mb-4 rounded-2xl drop-shadow-lg text-[#F7F4F3] ${
         lookedUpPlayer!.win
           ? "bg-[rgba(12,79,117,0.75)]"
           : "bg-[rgba(117,12,66,0.75)]"
@@ -95,8 +95,8 @@ const MatchTile: React.FC<{
       </section>
       {/* PLAYER SECTION */}
 
-      <section className="flex flex-col w-72">
-        <div className="flex w-56 items-center space-x-1">
+      <section className="flex flex-col w-72 ml-2">
+        <div className="flex w-full items-center space-x-1">
           <Image
             src={formatUnicorn(CHAMPION_ICON, {
               champion: lookedUpPlayer!.championName,
@@ -170,13 +170,13 @@ const MatchTile: React.FC<{
       </section>
 
       {/* TEAMS SECTION */}
-      <section className="w-80 ml-[25%]">
-        <div className="flex">
+      <section className="xl:w-80 w-[504px] xl:ml-[25%] hidden md:block">
+        <div className="flex justify-around">
           <div className="w-36 flex flex-col">
             {team1.map((participant) => (
               <div
                 key={participant.summonerName}
-                className={`flex items-center space-x-1 ${
+                className={`flex items-center space-x-1 w-64 ${
                   participant.puuid === lookedUpPlayer!.puuid ? "font-bold" : ""
                 }`}
               >
@@ -201,7 +201,7 @@ const MatchTile: React.FC<{
             {team2.map((participant) => (
               <div
                 key={participant.summonerName}
-                className={`flex items-center space-x-1 ${
+                className={`flex items-center space-x-1 w-64 ${
                   participant.puuid === lookedUpPlayer!.puuid ? "font-bold" : ""
                 }`}
               >
