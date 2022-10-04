@@ -1,4 +1,13 @@
-const gameVersion = "12.16.1";
+let gameVersion = "12.16.1";
+
+// const getGameVersion = async () => {
+//   const res = await fetch(
+//     "https://ddragon.leagueoflegends.com/api/versions.json"
+//   );
+//   const data = await res.json();
+//   let version = data[0];
+//   return version;
+// };
 
 // ITEMS
 export const ITEMS_URL: string = `http://ddragon.leagueoflegends.com/cdn/${gameVersion}/data/en_US/item.json`;

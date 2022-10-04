@@ -87,7 +87,7 @@ const useGetSummonerData: GetSummonerDataType = async (
     return matchesDetailsData;
   };
 
-  for (const match of matchesData) {
+  for (const match of twoMatches) {
     const data = await fetchMatchDetails(region, match);
     matchDetailsArr.push(data);
   }
