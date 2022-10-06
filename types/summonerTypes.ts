@@ -106,6 +106,7 @@ export type LiveMatchParticipantType = {
   spell1Id: number;
   spell2Id: number;
   championId: number;
+  championUrl?: string;
   profileIconId: number;
   summonerName: string;
   bot: boolean;

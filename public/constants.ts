@@ -21,6 +21,7 @@ export const PROFILE_IMAGE: string = `http://ddragon.leagueoflegends.com/cdn/${g
 export const MATCHES_BY_SUMMONER_ID: string = `https://{realm}.api.riotgames.com/lol/match/v5/matches/by-puuid/{summonerId}/ids?start={start}&count={count}`;
 export const MATCH_BY_MATCH_ID: string = `https://{realm}.api.riotgames.com/lol/match/v5/matches/{matchId}`;
 export const LIVE_GAME: string = `https://{server}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/{summonerId}`;
+export const FEATURED_LIVE_GAMES: string = `https://{server}.api.riotgames.com/lol/spectator/v4/featured-games`;
 
 // CHAMPIONS
 export const CHAMPION_ICON: string = `https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/{champion}.png`;

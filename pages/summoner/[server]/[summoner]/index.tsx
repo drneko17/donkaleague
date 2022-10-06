@@ -32,9 +32,6 @@ const SummonerProfile: NextPage<{
   status?: number;
 }> = ({ data, server, isLive, status }) => {
   const version = useContext(VersionContext);
-  console.log(version);
-
-  console.log(status);
 
   return (
     <>

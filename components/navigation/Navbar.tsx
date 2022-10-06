@@ -11,6 +11,15 @@ const NavLinks: React.FC<{
 }> = ({ mainClass, buttonClass, closeDrawer }) => {
   return (
     <div className={`${mainClass}`}>
+      <Link href="/live">
+        <span className={`${buttonClass}`} onClick={closeDrawer}>
+          <button
+            className={`text-xl text-my-white hover:underline underline-offset-4 transition-all`}
+          >
+            Live Game
+          </button>
+        </span>
+      </Link>
       <Link href="/">
         <span className={`${buttonClass}`} onClick={closeDrawer}>
           <button
