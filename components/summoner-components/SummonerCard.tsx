@@ -27,20 +27,22 @@ const SummonerCard: React.FC<{
   const router = useRouter();
   const { summoner, server } = router.query;
   const emblemUrl = useGetEmblem(data.tier);
-  const pfpUrl = formatUnicorn(PROFILE_IMAGE, { iconId: data.profileIconId });
+  const pfpUrl = formatUnicorn(PROFILE_IMAGE, {
+    iconId: data.profileIconId,
+  });
   const winRatio = (data.wins / (data.losses + data.wins)) * 100;
-  console.log(data.id);
+  // console.log(data.id);
 
   const liveGameClasses = isLive
     ? "bg-[rgb(12,79,117)]"
     : "bg-[#374a67] cursor-not-allowed text-slate-400";
   return (
     <div
-      className={`items-center justify-around drop-shadow-lg rounded-xl text-center text-[#F7F4F3] bg-[#2F3D53] ${classes}`}
+      className={`items-center justify-around drop-shadow-lg rounded-xl text-center text-my-white bg-my-gray ${classes}`}
     >
       <div>
-        <h1 className="font-bold text-[#F7F4F3] text-2xl">{data.name}</h1>
-        <div className="h-24 md:h-32 flex justify-center text-[#F7F4F3] bg items-end md:my-4">
+        <h1 className="font-bold text-my-white text-2xl">{data.name}</h1>
+        <div className="h-24 md:h-32 flex justify-center text-my-white bg items-end md:my-4">
           <div className="absolute z-10 w-[128px] text-center drop-shadow-lg">
             Level: {data.summonerLevel}
           </div>
@@ -71,7 +73,7 @@ const SummonerCard: React.FC<{
         <Link href={`/summoner/${server}/${summoner}/live`}>
           <button
             disabled={!isLive}
-            className={`rounded-xl p-3 mt-2 ${liveGameClasses}`}
+            className={`rounded-xl p-3 mt-2 ${liveGameClasses} drop-shadow-lg`}
           >
             Live Game
           </button>

@@ -14,9 +14,9 @@ const NavLinks: React.FC<{
       <Link href="/">
         <span className={`${buttonClass}`} onClick={closeDrawer}>
           <button
-            className={`text-xl text-[#f7f4f3] hover:underline underline-offset-4 transition-all`}
+            className={`text-xl text-my-white hover:underline underline-offset-4 transition-all`}
           >
-            Summoner Searcher
+            Search Summoner
           </button>
         </span>
       </Link>
@@ -50,11 +50,11 @@ const Navbar: React.FC = () => {
         </nav>
       </SideDrawer>
 
-      <nav className="flex fixed bg-[#0E1116] w-full h-16 items-center z-10">
+      <nav className="flex fixed bg-my-black w-full h-16 items-center z-10">
         {/* logo section */}
         <section className="w-3/12">
           <Link href="/">
-            <h1 className="cursor-pointer text-[#f7f4f3] text-2xl pl-5">
+            <h1 className="cursor-pointer text-my-white text-2xl pl-5">
               Monka League
             </h1>
           </Link>
@@ -69,9 +69,9 @@ const Navbar: React.FC = () => {
             className="w-12 h-12 cursor-pointer flex flex-col justify-around mr-8 sm:hidden"
             onClick={openDrawerHandler}
           >
-            <span className="block w-12 h-[3px] bg-[#f7f4f3]" />
-            <span className="block w-12 h-[3px] bg-[#f7f4f3]" />
-            <span className="block w-12 h-[3px] bg-[#f7f4f3]" />
+            <span className="block w-12 h-[3px] bg-my-white" />
+            <span className="block w-12 h-[3px] bg-my-white" />
+            <span className="block w-12 h-[3px] bg-my-white" />
           </div>
         </section>
       </nav>

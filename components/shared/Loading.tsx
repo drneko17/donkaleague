@@ -17,7 +17,7 @@ const Loading: React.FC = () => {
         </div>
         <div className="h-[100px] w-[137.5px] text-center"></div>
       </div>
-      <div className="mt-[-154px] text-center z-10 font-black text-[#F7F4F3]">
+      <div className="mt-[-154px] text-center z-10 font-black text-my-white">
         Loading...
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useContext } from "react";
 
 import useGetChampionIconUrl from "../../hooks/useGetChampionIconUrl";
 import useGetSummonerSpellUrl from "../../hooks/useGetSummonerSpellUrl";
@@ -63,7 +63,7 @@ const LiveGameSummonerTile: React.FC<{
   }, []);
 
   const summonerDataHandler = useCallback(async () => {
-    const response = await fetch("/api/hello", {
+    const response = await fetch("/api/fetchSummonerRank", {
       method: "GET",
       headers: {
         summonerid: `${summonerId}`,
@@ -72,11 +72,12 @@ const LiveGameSummonerTile: React.FC<{
     });
 
     const responseData = await response.json();
-    const thisSummoner = responseData.leagueData.find(
-      (item: SummonerByIdType) => item.summonerId === summonerId
-    );
-    setEmblemUrl(useGetEmblem(thisSummoner.tier));
-    setThisSummonerData(thisSummoner);
+
+    let soloNumber =
+      responseData.leagueData[0].queueType === "RANKED_SOLO_5x5" ? 0 : 1;
+
+    setEmblemUrl(useGetEmblem(responseData.leagueData[soloNumber].tier));
+    setThisSummonerData(responseData.leagueData[soloNumber]);
   }, []);
 
   useEffect(() => {

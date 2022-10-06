@@ -39,7 +39,7 @@ const LiveGame: NextPage<{
       <div className={`${teamClasses}`}>
         {team1.map((participant) => (
           <LiveGameSummonerTile
-            classes="bg-[rgba(12,79,117,0.75)] text-[#F7F4F3]"
+            classes="bg-[rgba(12,79,117,0.75)] text-my-white"
             data={participant}
             key={participant.summonerId}
           />
@@ -48,7 +48,7 @@ const LiveGame: NextPage<{
       <div className={`${teamClasses} mt-4`}>
         {team2.map((participant) => (
           <LiveGameSummonerTile
-            classes="bg-[rgba(117,12,66,0.75)] text-[#F7F4F3]"
+            classes="bg-[rgba(117,12,66,0.75)] text-my-white"
             data={participant}
             key={participant.summonerId}
           />

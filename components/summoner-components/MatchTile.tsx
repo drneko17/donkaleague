@@ -69,11 +69,11 @@ const MatchTile: React.FC<{
     match.info.gameDuration % 60
   }s`;
 
-  console.log(primaryTree);
+  // console.log(primaryTree);
 
   return (
     <div
-      className={`flex items-center p-2 mb-4 rounded-2xl drop-shadow-lg text-[#F7F4F3] ${
+      className={`flex items-center p-2 mb-4 rounded-2xl drop-shadow-lg text-my-white ${
         lookedUpPlayer!.win
           ? "bg-[rgba(12,79,117,0.75)]"
           : "bg-[rgba(117,12,66,0.75)]"
@@ -160,7 +160,9 @@ const MatchTile: React.FC<{
           {lookedUpPlayerItems.map((item) => (
             <Image
               key={item}
-              src={formatUnicorn(ITEM_IMAGE, { item: item })}
+              src={formatUnicorn(ITEM_IMAGE, {
+                item: item,
+              })}
               width={32}
               height={32}
               className="rounded-md"

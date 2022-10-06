@@ -1,14 +1,5 @@
 let gameVersion = "12.16.1";
 
-// const getGameVersion = async () => {
-//   const res = await fetch(
-//     "https://ddragon.leagueoflegends.com/api/versions.json"
-//   );
-//   const data = await res.json();
-//   let version = data[0];
-//   return version;
-// };
-
 // ITEMS
 export const ITEMS_URL: string = `http://ddragon.leagueoflegends.com/cdn/${gameVersion}/data/en_US/item.json`;
 export const ITEM_IMAGE: string = `http://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/item/{item}.png`;
@@ -27,7 +18,7 @@ export const LEAGUE_BY_SUMMONER_ID: string = `https://{server}.api.riotgames.com
 export const PROFILE_IMAGE: string = `http://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/profileicon/{iconId}.png`;
 
 // MATCHES
-export const MATCHES_BY_SUMMONER_ID: string = `https://{realm}.api.riotgames.com/lol/match/v5/matches/by-puuid/{summonerId}/ids?start=0&count=20`;
+export const MATCHES_BY_SUMMONER_ID: string = `https://{realm}.api.riotgames.com/lol/match/v5/matches/by-puuid/{summonerId}/ids?start={start}&count={count}`;
 export const MATCH_BY_MATCH_ID: string = `https://{realm}.api.riotgames.com/lol/match/v5/matches/{matchId}`;
 export const LIVE_GAME: string = `https://{server}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/{summonerId}`;
 

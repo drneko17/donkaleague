@@ -11,7 +11,9 @@ const useGetChampionIconUrl: GetChampionIconUrlType = async (championId) => {
   const champions = data.data;
   for (const champion in champions) {
     if (champions[champion].key == championId) {
-      const url = formatUnicorn(CHAMPION_ICON, { champion: champion });
+      const url = formatUnicorn(CHAMPION_ICON, {
+        champion: champion,
+      });
       return url;
     }
   }

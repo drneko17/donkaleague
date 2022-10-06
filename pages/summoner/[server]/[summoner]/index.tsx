@@ -1,11 +1,14 @@
 import { NextPage, GetServerSideProps } from "next";
+import { useContext } from "react";
 import MatchHistory from "../../../../components/summoner-components/MatchHistory";
 import SummonerCard from "../../../../components/summoner-components/SummonerCard";
+import SearchForm from "../../../../components/summoner-components/SearchForm";
 
 import formatUnicorn from "format-unicorn/safe";
 
 import { LIVE_GAME } from "../../../../public/constants";
 
+import VersionContext from "../../../../context/version-context";
 import useGetRegion from "../../../../hooks/useGetRegion";
 import useGetSummonerData from "../../../../hooks/useGetSummonerData";
 import {
@@ -22,30 +25,45 @@ const headersConfig = {
   "X-Riot-Token": `${process.env.RIOT_API_KEY}`,
 };
 
-// xl:block flex w-[90%] xl:w-48 h-[268px] xl:h-[500px] p-8 xl:py-4 xl:px-0
-
-// w-[100vw] xl:w-[72rem] flex justify-center ml-[15%]
-
 const SummonerProfile: NextPage<{
-  data: FullSummonerDataType;
-  server: string;
-  isLive: boolean;
-}> = ({ data, server, isLive }) => {
+  data?: FullSummonerDataType;
+  server?: string;
+  isLive?: boolean;
+  status?: number;
+}> = ({ data, server, isLive, status }) => {
+  const version = useContext(VersionContext);
+  console.log(version);
+
+  console.log(status);
+
   return (
     <>
-      <div className="px-8 py-4 flex xl:flex-row flex-col w-full">
-        <SummonerCard
-          data={data.summoner}
-          classes="w-[100%] xl:w-48 xl:min-w-[12rem] xl:h-[500px] mb-4 xl:mb-0 h-44 p-4 xl:py-4 xl:px-0 flex xl:block"
-          isLive={isLive}
-        />
-        <MatchHistory
-          server={server}
-          matches={data.matches}
-          userId={data.summoner.puuid}
-          classes="w-full xl:mx-4"
-        />
-      </div>
+      {status === 404 ? (
+        <div className="flex flex-col items-center">
+          <h1 className="text-center text-3xl mt-12 text-my-white">
+            SUMMONER NOT FOUND!
+          </h1>
+          <div className="text-center text-xl text-my-white mb-12">
+            Please make sure you've spelled the name correctly and selected the
+            correct server!
+          </div>
+          <SearchForm />
+        </div>
+      ) : (
+        <div className="px-8 py-4 flex xl:flex-row flex-col w-full">
+          <SummonerCard
+            data={data!.summoner}
+            classes="w-[100%] xl:w-48 xl:min-w-[12rem] xl:h-[500px] mb-4 xl:mb-0 h-44 p-4 xl:py-4 xl:px-0 flex xl:block"
+            isLive={isLive!}
+          />
+          <MatchHistory
+            server={server!}
+            matches={data!.matches}
+            userId={data!.summoner.puuid}
+            classes="w-full xl:mx-4"
+          />
+        </div>
+      )}
     </>
   );
 };
@@ -58,6 +76,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let isLive = false;
 
   const data = await useGetSummonerData(server, summoner, region);
+  if (!data.summoner) {
+    return {
+      props: {
+        status: 404,
+      },
+    };
+  }
+
   // console.log(data.summoner);
 
   const liveMatchResponse = await fetch(
@@ -76,6 +102,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       data,
       server,
       isLive,
+      status: 200,
     },
   };
 };

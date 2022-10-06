@@ -6,6 +6,7 @@ import Loading from "../shared/Loading";
 
 const SearchForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isNameError, setIsNameError] = useState(false);
   const router = useRouter();
 
   const summonerNameRef = useRef<HTMLInputElement>(null);
@@ -16,14 +17,21 @@ const SearchForm: React.FC = () => {
     e.preventDefault();
     const name = summonerNameRef.current!.value;
     const server = serverRef.current!.value;
-    router.push(`/summoner/${server}/${name}`);
+    if (name.length === 0) {
+      setIsNameError(true);
+      setIsLoading(false);
+    } else {
+      router.push(`/summoner/${server}/${name}`);
+    }
   };
+
+  const optionClass = "bg-[#616283]";
 
   return (
     <>
       <form
         onSubmit={formSubmitHandler}
-        className="md:flex-row flex-col items-center drop-shadow-xl bg-[#2F3D53] md:px-8 rounded-lg flex w-9/12 max-w-[800px] text-[#F7F4F3]"
+        className="md:flex-row flex-col items-center drop-shadow-xl bg-my-gray md:px-8 rounded-lg flex w-9/12 max-w-[800px] text-[#F7F4F3]"
       >
         <div className="md:flex-row flex-col py-4 flex w-full md:w-9/12 space-x-4 items-center md:text-left text-center">
           <div className="flex flex-col w-9/12">
@@ -49,37 +57,37 @@ const SearchForm: React.FC = () => {
                 ref={serverRef}
                 className="rounded-md md:rounded-none p-2 md:p-0 bg-[#374a67] md:bg-transparent border-none outline-none"
               >
-                <option value="EUW1" className="bg-[#616283]">
+                <option value="EUW1" className={optionClass}>
                   EUW
                 </option>
-                <option value="EUN1" className="bg-[#616283]">
+                <option value="EUN1" className={optionClass}>
                   EUNE
                 </option>
-                <option value="KR" className="bg-[#616283]">
+                <option value="KR" className={optionClass}>
                   KR
                 </option>
-                <option value="NA1" className="bg-[#616283]">
+                <option value="NA1" className={optionClass}>
                   NA
                 </option>
-                <option value="BR1" className="bg-[#616283]">
+                <option value="BR1" className={optionClass}>
                   BR
                 </option>
-                <option value="JP1" className="bg-[#616283]">
+                <option value="JP1" className={optionClass}>
                   JP
                 </option>
-                <option value="LA1" className="bg-[#616283]">
+                <option value="LA1" className={optionClass}>
                   LA1
                 </option>
-                <option value="LA2" className="bg-[#616283]">
+                <option value="LA2" className={optionClass}>
                   LA2
                 </option>
-                <option value="OC1" className="bg-[#616283]">
+                <option value="OC1" className={optionClass}>
                   OCE
                 </option>
-                <option value="RU" className="bg-[#616283]">
+                <option value="RU" className={optionClass}>
                   RU
                 </option>
-                <option value="TR1" className="bg-[#616283]">
+                <option value="TR1" className={optionClass}>
                   TR
                 </option>
               </select>
@@ -90,6 +98,11 @@ const SearchForm: React.FC = () => {
           <Image src="/monkabus.png" height={72} width={99} />
         </button>
       </form>
+      {isNameError && (
+        <div className="mt-4 text-xl text-my-white">
+          Please enter a summoner name!
+        </div>
+      )}
       {isLoading ? <Loading /> : ""}
       {/* <Loading /> */}
     </>

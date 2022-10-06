@@ -14,7 +14,7 @@ const SideDrawer: React.FC<{ children?: React.ReactNode; show?: boolean }> = ({
       mountOnEnter
       unmountOnExit
     >
-      <aside className="fixed left-0 top-0 z-50 bg-[#2F3D53] h-[100vh] w-[69%]">
+      <aside className="fixed left-0 top-0 z-50 bg-my-gray h-[100vh] w-[69%]">
         {children}
       </aside>
     </CSSTransition>
