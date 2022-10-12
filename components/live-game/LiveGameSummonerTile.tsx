@@ -36,8 +36,8 @@ const LiveGameSummonerTile: React.FC<{
   const [thisSummonerData, setThisSummonerData] = useState({
     leagueId: "",
     queueType: "",
-    tier: "",
-    rank: "",
+    tier: "unranked",
+    rank: "unranked",
     summonerId: "",
     summonerName: "",
     leaguePoints: 0,
@@ -72,12 +72,18 @@ const LiveGameSummonerTile: React.FC<{
     });
 
     const responseData = await response.json();
-
-    let soloNumber =
-      responseData.leagueData[0].queueType === "RANKED_SOLO_5x5" ? 0 : 1;
-
-    setEmblemUrl(useGetEmblem(responseData.leagueData[soloNumber].tier));
-    setThisSummonerData(responseData.leagueData[soloNumber]);
+    console.log(responseData);
+    let soloNumber: number;
+    if (
+      responseData.leagueData.length === 2 ||
+      (responseData.leagueData.length === 1 &&
+        responseData.leagueData[0].queueType === "RANKED_SOLO_5x5")
+    ) {
+      soloNumber =
+        responseData.leagueData[0].queueType === "RANKED_SOLO_5x5" ? 0 : 1;
+      setEmblemUrl(useGetEmblem(responseData.leagueData[soloNumber!].tier));
+      setThisSummonerData(responseData.leagueData[soloNumber!]);
+    }
   }, []);
 
   useEffect(() => {
@@ -121,24 +127,31 @@ const LiveGameSummonerTile: React.FC<{
             />
           </div>
         </div>
-        <div className="flex flex-col items-center mt-4">
-          <Image src={emblemUrl} width={128} height={128} />
-          <div className="">
-            {thisSummonerData.tier} {thisSummonerData.rank} -{" "}
-            {thisSummonerData.leaguePoints} LP
+        {thisSummonerData.tier === "unranked" ? (
+          <div className="flex flex-col justify-center h-[216px]">
+            <div className="">unranked</div>
           </div>
-          <div>
-            {thisSummonerData.wins}W/{thisSummonerData.losses}L
+        ) : (
+          <div className="flex flex-col items-center mt-4">
+            <Image src={emblemUrl} width={128} height={128} />
+            <div className="">
+              {thisSummonerData.tier} {thisSummonerData.rank} -{" "}
+              {thisSummonerData.leaguePoints} LP
+            </div>
+            <div>
+              {thisSummonerData.wins}W/{thisSummonerData.losses}L
+            </div>
+            <div>
+              {(
+                (thisSummonerData.wins /
+                  (thisSummonerData.wins + thisSummonerData.losses)) *
+                100
+              ).toFixed(2)}
+              % win ratio
+            </div>
           </div>
-          <div>
-            {(
-              (thisSummonerData.wins /
-                (thisSummonerData.wins + thisSummonerData.losses)) *
-              100
-            ).toFixed(2)}
-            % win ratio
-          </div>
-        </div>
+        )}
+
         {/* RUNES */}
         <div className="flex items-center space-x-2 py-4">
           <div className="flex flex-col items-center space-y-1">

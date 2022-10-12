@@ -59,9 +59,14 @@ const useGetSummonerData: GetSummonerDataType = async (
   );
 
   const leagueData: SummonerByIdType[] = await leagueResponse.json();
-  let soloPosition = leagueData[0].queueType === "RANKED_SOLO_5x5" ? 0 : 1;
-  // console.log(leagueData);
-  // console.log(`soloposition is ${soloPosition}`);
+  let soloPosition: number;
+  if (leagueData.length === 0) {
+    soloPosition = 420;
+  } else {
+    soloPosition = leagueData[0].queueType === "RANKED_SOLO_5x5" ? 0 : 1;
+  }
+  console.log(leagueData);
+  console.log(`soloposition is ${soloPosition}`);
 
   //GET MATCHES IDs
   const response = await fetch("http://localhost:4200/api/fetchMoreMatches", {
@@ -75,52 +80,33 @@ const useGetSummonerData: GetSummonerDataType = async (
   });
   const matchData = await response.json();
 
-  // const matchesResponse = await fetch(
-  //   formatUnicorn(MATCHES_BY_SUMMONER_ID, {
-  //     realm: region,
-  //     summonerId: summonerData.puuid,
-  //     start: 0,
-  //     count: 20,
-  //   }),
-  //   {
-  //     method: "GET",
-  //     headers: headersConfig,
-  //   }
-  // );
+  let allData: FullSummonerDataType;
+  if (!leagueData[soloPosition]) {
+    allData = {
+      summoner: {
+        ...summonerData,
+        tier: "unranked",
+        rank: "unranked",
+        lp: 0,
+        wins: 0,
+        losses: 0,
+      },
+      matches: matchData,
+    };
+  } else {
+    allData = {
+      summoner: {
+        ...summonerData,
+        tier: leagueData[soloPosition].tier,
+        rank: leagueData[soloPosition].rank,
+        lp: leagueData[soloPosition].leaguePoints,
+        wins: leagueData[soloPosition].wins,
+        losses: leagueData[soloPosition].losses,
+      },
+      matches: matchData,
+    };
+  }
 
-  // const matchesData: string[] = await matchesResponse.json();
-  // const twoMatches: string[] = matchesData.slice(0, 2);
-  // //GET MATCH DETAILS BY MATCH ID
-  // let matchDetailsArr: any[] = [];
-
-  // const fetchMatchDetails = async (realm: any, matchId: string) => {
-  //   const matchesDetailsResponse = await fetch(
-  //     formatUnicorn(MATCH_BY_MATCH_ID, {
-  //       realm,
-  //       matchId,
-  //     }),
-  //     { method: "GET", headers: headersConfig }
-  //   );
-  //   const matchesDetailsData = await matchesDetailsResponse.json();
-  //   return matchesDetailsData;
-  // };
-
-  // for (const match of twoMatches) {
-  //   const data = await fetchMatchDetails(region, match);
-  //   matchDetailsArr.push(data);
-  // }
-
-  let allData: FullSummonerDataType = {
-    summoner: {
-      ...summonerData,
-      tier: leagueData[soloPosition].tier,
-      rank: leagueData[soloPosition].rank,
-      lp: leagueData[soloPosition].leaguePoints,
-      wins: leagueData[soloPosition].wins,
-      losses: leagueData[soloPosition].losses,
-    },
-    matches: matchData,
-  };
   // console.log(allData);
   return allData;
 };

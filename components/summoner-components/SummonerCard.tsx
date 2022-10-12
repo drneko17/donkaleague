@@ -57,18 +57,28 @@ const SummonerCard: React.FC<{
           </div>
         </div>
       </div>
-      <div className="text-xs md:text-base flex flex-col items-center">
-        <div className="w-24 h-24 md:w-32 md:h-32">
-          <Image src={emblemUrl} width={128} height={128} layout="responsive" />
+      {data.tier === "unranked" ? (
+        <div className="text-xl">Unranked</div>
+      ) : (
+        <div className="text-xs md:text-base flex flex-col items-center">
+          <div className="w-24 h-24 md:w-32 md:h-32">
+            <Image
+              src={emblemUrl}
+              width={128}
+              height={128}
+              layout="responsive"
+            />
+          </div>
+          <h3 className="mt-2">
+            {data.tier} {data.rank} - {data.lp} LP
+          </h3>
+          <div>
+            {data.wins}W/{data.losses}L
+          </div>
+          <div className="">{winRatio.toFixed(2)}% win ratio</div>
         </div>
-        <h3 className="mt-2">
-          {data.tier} {data.rank} - {data.lp} LP
-        </h3>
-        <div>
-          {data.wins}W/{data.losses}L
-        </div>
-        <div className="">{winRatio.toFixed(2)}% win ratio</div>
-      </div>
+      )}
+
       <div>
         <Link href={`/summoner/${server}/${summoner}/live`}>
           <button

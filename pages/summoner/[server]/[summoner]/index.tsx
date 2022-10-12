@@ -15,6 +15,7 @@ import {
   FullSummonerDataType,
   LiveMatchType,
 } from "../../../../types/summonerTypes";
+import SummonerNotFound from "../../../../components/shared/SummonerNotFound";
 
 const headersConfig = {
   "User-Agent":
@@ -29,28 +30,24 @@ const SummonerProfile: NextPage<{
   data?: FullSummonerDataType;
   server?: string;
   isLive?: boolean;
-  status?: number;
+  status: number;
 }> = ({ data, server, isLive, status }) => {
-  const version = useContext(VersionContext);
+  let sch;
+  if (data!.summoner.tier === "unranked") {
+    sch = "xl:h-[315px] h-44";
+  } else {
+    sch = "xl:h-[500px] h-44";
+  }
 
   return (
     <>
       {status === 404 ? (
-        <div className="flex flex-col items-center">
-          <h1 className="text-center text-3xl mt-12 text-my-white">
-            SUMMONER NOT FOUND!
-          </h1>
-          <div className="text-center text-xl text-my-white mb-12">
-            Please make sure you've spelled the name correctly and selected the
-            correct server!
-          </div>
-          <SearchForm />
-        </div>
+        <SummonerNotFound />
       ) : (
         <div className="px-8 py-4 flex xl:flex-row flex-col w-full">
           <SummonerCard
             data={data!.summoner}
-            classes="w-[100%] xl:w-48 xl:min-w-[12rem] xl:h-[500px] mb-4 xl:mb-0 h-44 p-4 xl:py-4 xl:px-0 flex xl:block"
+            classes={`w-[100%] xl:w-48 xl:min-w-[12rem] ${sch} mb-4 xl:mb-0 p-4 xl:py-4 xl:px-0 flex xl:block`}
             isLive={isLive!}
           />
           <MatchHistory

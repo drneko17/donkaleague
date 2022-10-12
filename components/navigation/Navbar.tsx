@@ -16,7 +16,7 @@ const NavLinks: React.FC<{
           <button
             className={`text-xl text-my-white hover:underline underline-offset-4 transition-all`}
           >
-            Live Game
+            Featured Live Games
           </button>
         </span>
       </Link>
