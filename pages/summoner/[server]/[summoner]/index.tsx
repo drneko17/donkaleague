@@ -1,14 +1,11 @@
 import { NextPage, GetServerSideProps } from "next";
-import { useContext } from "react";
 import MatchHistory from "../../../../components/summoner-components/MatchHistory";
 import SummonerCard from "../../../../components/summoner-components/SummonerCard";
-import SearchForm from "../../../../components/summoner-components/SearchForm";
 
 import formatUnicorn from "format-unicorn/safe";
 
 import { LIVE_GAME } from "../../../../public/constants";
 
-import VersionContext from "../../../../context/version-context";
 import useGetRegion from "../../../../hooks/useGetRegion";
 import useGetSummonerData from "../../../../hooks/useGetSummonerData";
 import {
@@ -69,7 +66,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const region = useGetRegion(server);
   let isLive = false;
 
-  const data = await useGetSummonerData(server, summoner, region);
+  const data = (await useGetSummonerData(
+    server,
+    summoner,
+    region
+  )) as FullSummonerDataType;
   if (!data.summoner) {
     return {
       props: {

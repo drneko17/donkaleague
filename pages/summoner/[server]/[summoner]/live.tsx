@@ -8,6 +8,7 @@ import LiveGameSummonerTile from "../../../../components/live-game/LiveGameSummo
 import {
   SummonerByNameType,
   LiveMatchType,
+  LiveMatchParticipantType,
 } from "../../../../types/summonerTypes";
 import { SUMMONER_BY_NAME, LIVE_GAME } from "../../../../public/constants";
 import SummonerNotFound from "../../../../components/shared/SummonerNotFound";
@@ -29,7 +30,8 @@ const LiveGame: NextPage<{
   const router = useRouter();
   const region = router.query.summoner;
   // console.log(liveMatchData);
-  let team1, team2;
+  let team1: LiveMatchParticipantType[];
+  let team2: LiveMatchParticipantType[];
   if (status === 200) {
     team1 = liveMatchData.participants.slice(0, 5);
     team2 = liveMatchData.participants.slice(5, 10);
@@ -51,7 +53,7 @@ const LiveGame: NextPage<{
         <div className="p-4 flex flex-col items-center">
           <div>Live game of {summoner}</div>
           <div className={`${teamClasses}`}>
-            {team1.map((participant) => (
+            {team1!.map((participant) => (
               <LiveGameSummonerTile
                 classes="bg-[rgba(12,79,117,0.75)] text-my-white"
                 data={participant}
@@ -60,7 +62,7 @@ const LiveGame: NextPage<{
             ))}
           </div>
           <div className={`${teamClasses} mt-4`}>
-            {team2.map((participant) => (
+            {team2!.map((participant) => (
               <LiveGameSummonerTile
                 classes="bg-[rgba(117,12,66,0.75)] text-my-white"
                 data={participant}
