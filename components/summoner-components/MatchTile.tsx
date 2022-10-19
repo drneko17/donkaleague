@@ -3,11 +3,13 @@ import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import date from "date-and-time";
+import { useRouter } from "next/router";
 
 import { CHAMPION_ICON, ITEM_IMAGE } from "../../public/constants";
 import { MatchDataType } from "../../types/summonerTypes";
 import useGetSummonerSpellUrl from "../../hooks/useGetSummonerSpellUrl";
 import useGetRunesUrls from "../../hooks/useGetRunesUrls";
+import useGetRegion from "../../hooks/useGetRegion";
 import Loading from "../shared/Loading";
 
 const MatchTile: React.FC<{
@@ -15,6 +17,8 @@ const MatchTile: React.FC<{
   userId: string;
   server: string;
 }> = ({ match, userId, server }) => {
+  const router = useRouter();
+  const region = useGetRegion(server);
   const [primaryTree, setPrimaryTree] = useState({
     styleUrl: "",
     runesUrls: [],
@@ -73,6 +77,9 @@ const MatchTile: React.FC<{
 
   return (
     <div
+      onClick={() => {
+        router.push(`/match/${region}/${match.metadata.matchId}`);
+      }}
       className={`flex items-center p-2 mb-4 rounded-2xl drop-shadow-lg text-my-white ${
         lookedUpPlayer!.win
           ? "bg-[rgba(12,79,117,0.75)]"

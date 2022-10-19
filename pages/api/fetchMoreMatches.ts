@@ -43,6 +43,8 @@ export default async function handler(
   );
   const matchesData: string[] = await matchesResponse.json();
 
+  console.log(matchesData);
+
   //GET MATCH DETAILS BY MATCH ID
 
   let matchDetailsArr: any[] = [];

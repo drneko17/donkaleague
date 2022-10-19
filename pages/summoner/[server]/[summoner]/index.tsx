@@ -30,10 +30,13 @@ const SummonerProfile: NextPage<{
   status: number;
 }> = ({ data, server, isLive, status }) => {
   let sch;
-  if (data!.summoner.tier === "unranked") {
-    sch = "xl:h-[315px] h-44";
-  } else {
-    sch = "xl:h-[500px] h-44";
+
+  if (status !== 404) {
+    if (data!.summoner.tier === "unranked") {
+      sch = "xl:h-[315px] h-44";
+    } else {
+      sch = "xl:h-[500px] h-44";
+    }
   }
 
   return (

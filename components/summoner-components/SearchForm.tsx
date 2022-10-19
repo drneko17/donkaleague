@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
 import Loading from "../shared/Loading";
@@ -9,13 +9,17 @@ const SearchForm: React.FC = () => {
   const [isNameError, setIsNameError] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    setIsLoading(false);
+  }, [router.query.summoner]);
+
   const summonerNameRef = useRef<HTMLInputElement>(null);
   const serverRef = useRef<HTMLSelectElement>(null);
 
   const formSubmitHandler = (e: React.FormEvent) => {
     setIsLoading(true);
     e.preventDefault();
-    const name = summonerNameRef.current!.value;
+    let name = summonerNameRef.current!.value;
     const server = serverRef.current!.value;
     if (name.length === 0) {
       setIsNameError(true);
@@ -23,6 +27,7 @@ const SearchForm: React.FC = () => {
     } else {
       router.push(`/summoner/${server}/${name}`);
     }
+    summonerNameRef.current!.value = "";
   };
 
   const optionClass = "bg-[#616283]";
