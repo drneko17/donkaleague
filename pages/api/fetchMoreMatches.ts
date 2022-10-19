@@ -7,7 +7,7 @@ import {
   MATCHES_BY_SUMMONER_ID,
   MATCH_BY_MATCH_ID,
 } from "../../public/constants";
-import { SummonerByIdType } from "../../types/summonerTypes";
+import { SummonerByIdType, MatchDataType } from "../../types/summonerTypes";
 
 const headersConfig = {
   "User-Agent":
@@ -17,14 +17,9 @@ const headersConfig = {
   Origin: "https://developer.riotgames.com",
   "X-Riot-Token": `${process.env.RIOT_API_KEY}`,
 };
-
-type Data = {
-  leagueData: SummonerByIdType;
-};
-
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<MatchDataType[]>
 ) {
   const { region, puuid, start, count } = req.headers;
 
@@ -47,7 +42,7 @@ export default async function handler(
 
   //GET MATCH DETAILS BY MATCH ID
 
-  let matchDetailsArr: any[] = [];
+  let matchDetailsArr: MatchDataType[] = [];
 
   const fetchMatchDetails = async (realm: any, matchId: string) => {
     const matchesDetailsResponse = await fetch(
@@ -63,6 +58,8 @@ export default async function handler(
 
   for (const match of matchesData) {
     const data = await fetchMatchDetails(region, match);
+
+    console.log(data);
     matchDetailsArr.push(data);
   }
 
