@@ -1,9 +1,4 @@
-import {
-  SUMMONER_BY_NAME,
-  LEAGUE_BY_SUMMONER_ID,
-  MATCHES_BY_SUMMONER_ID,
-  MATCH_BY_MATCH_ID,
-} from "../public/constants";
+import { SUMMONER_BY_NAME, LEAGUE_BY_SUMMONER_ID } from "../public/constants";
 import {
   SummonerByNameType,
   FullSummonerDataType,

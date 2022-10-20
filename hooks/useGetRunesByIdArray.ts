@@ -1,9 +1,13 @@
 import { RUNES_DATA } from "../public/constants";
 import { RuneDataType, RuneType } from "../types/summonerTypes";
+import formatUnicorn from "format-unicorn/safe";
 
-type GetRunesByIdArray = (runeIds: number[] | string[]) => Promise<RuneType[]>;
+type GetRunesByIdArray = (
+  runeIds: number[] | string[],
+  version: string
+) => Promise<RuneType[]>;
 
-const useGetRunesByIdArray: GetRunesByIdArray = async (runeIds) => {
+const useGetRunesByIdArray: GetRunesByIdArray = async (runeIds, version) => {
   let runes: {
     trees: {
       icon: string;
@@ -23,7 +27,9 @@ const useGetRunesByIdArray: GetRunesByIdArray = async (runeIds) => {
     runes: [],
   };
 
-  const runesResponse = await fetch(RUNES_DATA);
+  const runesResponse = await fetch(
+    formatUnicorn(RUNES_DATA, { gameVersion: version })
+  );
   const runesData: RuneDataType[] = await runesResponse.json();
 
   runesData.map((item) => {

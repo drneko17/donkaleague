@@ -13,11 +13,13 @@ import {
 import useGetRunesByIdArray from "../../hooks/useGetRunesByIdArray";
 import useGetEmblem from "../../hooks/useGetEmblem";
 import { useRouter } from "next/router";
+import VersionContext from "../../context/version-context";
 
 const LiveGameSummonerTile: React.FC<{
   data: LiveMatchParticipantType;
   classes: string;
 }> = ({ data, classes }) => {
+  const version = useContext(VersionContext);
   const router = useRouter();
   const { summonerId } = data;
 
@@ -53,12 +55,15 @@ const LiveGameSummonerTile: React.FC<{
   const summonerSpell2Url = useGetSummonerSpellUrl(data.spell2Id);
 
   const championIconUrlHandler = useCallback(async () => {
-    const championIconUrl: any = await useGetChampionIconUrl(data.championId);
+    const championIconUrl: any = await useGetChampionIconUrl(
+      data.championId,
+      version
+    );
     setChampionIcon(championIconUrl);
   }, []);
 
   const runesHandler = useCallback(async () => {
-    const foundRunes = await useGetRunesByIdArray(data.perks.perkIds);
+    const foundRunes = await useGetRunesByIdArray(data.perks.perkIds, version);
     setRunes(foundRunes);
   }, []);
 

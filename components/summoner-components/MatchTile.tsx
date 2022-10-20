@@ -1,6 +1,6 @@
 import formatUnicorn from "format-unicorn/safe";
 import Image from "next/image";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 import Link from "next/link";
 import date from "date-and-time";
 import { useRouter } from "next/router";
@@ -8,8 +8,10 @@ import { useRouter } from "next/router";
 import { CHAMPION_ICON, ITEM_IMAGE } from "../../public/constants";
 import { MatchDataType } from "../../types/summonerTypes";
 import useGetSummonerSpellUrl from "../../hooks/useGetSummonerSpellUrl";
+import useGetSummonerSPellUrlInABetterWay from "../../hooks/useGetSummonerSpellUrlInABetterWay";
 import useGetRunesUrls from "../../hooks/useGetRunesUrls";
 import useGetRegion from "../../hooks/useGetRegion";
+import VersionContext from "../../context/version-context";
 import Loading from "../shared/Loading";
 
 const MatchTile: React.FC<{
@@ -17,6 +19,7 @@ const MatchTile: React.FC<{
   userId: string;
   server: string;
 }> = ({ match, userId, server }) => {
+  const version = useContext(VersionContext);
   const router = useRouter();
   const region = useGetRegion(server);
   const [primaryTree, setPrimaryTree] = useState({
@@ -27,6 +30,8 @@ const MatchTile: React.FC<{
     styleUrl: "",
     runesUrls: [],
   });
+  const [summonerSpell1Url, setSummonerSpell1Url] = useState("");
+  const [summonerSpell2Url, setSummonerSpell2Url] = useState("");
 
   const lookedUpPlayer = match.info.participants.find(
     (player) => player.puuid === userId
@@ -34,21 +39,34 @@ const MatchTile: React.FC<{
 
   const fetchRunesUrlsHandler = useCallback(async () => {
     const resultPrimary: any = await useGetRunesUrls(
-      lookedUpPlayer!.perks.styles[0]
+      lookedUpPlayer!.perks.styles[0],
+      version
     );
     setPrimaryTree(resultPrimary);
     const resultSecondary: any = await useGetRunesUrls(
-      lookedUpPlayer!.perks.styles[1]
+      lookedUpPlayer!.perks.styles[1],
+      version
     );
     setSecondaryTree(resultSecondary);
   }, []);
 
+  const fetchSummonerSpellsUrlsHandler = useCallback(async () => {
+    const result1 = await useGetSummonerSPellUrlInABetterWay(
+      lookedUpPlayer!.summoner1Id,
+      version
+    );
+    setSummonerSpell1Url(result1);
+    const result2 = await useGetSummonerSPellUrlInABetterWay(
+      lookedUpPlayer!.summoner2Id,
+      version
+    );
+    setSummonerSpell2Url(result2);
+  }, []);
+
   useEffect(() => {
     fetchRunesUrlsHandler();
-  }, [fetchRunesUrlsHandler]);
-
-  const summonerSpell1Url = useGetSummonerSpellUrl(lookedUpPlayer!.summoner1Id);
-  const summonerSpell2Url = useGetSummonerSpellUrl(lookedUpPlayer!.summoner2Id);
+    fetchSummonerSpellsUrlsHandler();
+  }, [fetchRunesUrlsHandler, fetchSummonerSpellsUrlsHandler]);
 
   const lookedUpPlayerItems = [
     lookedUpPlayer!.item0,
@@ -107,6 +125,7 @@ const MatchTile: React.FC<{
           <Image
             src={formatUnicorn(CHAMPION_ICON, {
               champion: lookedUpPlayer!.championName,
+              gameVersion: version,
             })}
             width={64}
             height={64}
@@ -166,9 +185,10 @@ const MatchTile: React.FC<{
         <div className="mt-3">
           {lookedUpPlayerItems.map((item) => (
             <Image
-              key={item}
+              key={`${item}${match.info.gameId}`}
               src={formatUnicorn(ITEM_IMAGE, {
                 item: item,
+                gameVersion: version,
               })}
               width={32}
               height={32}
@@ -184,7 +204,7 @@ const MatchTile: React.FC<{
           <div className="w-36 flex flex-col">
             {team1.map((participant) => (
               <div
-                key={participant.summonerName}
+                key={`${participant.summonerName}${match.info.gameId}`}
                 className={`flex items-center space-x-1 w-64 ${
                   participant.puuid === lookedUpPlayer!.puuid ? "font-bold" : ""
                 }`}
@@ -192,6 +212,7 @@ const MatchTile: React.FC<{
                 <Image
                   src={formatUnicorn(CHAMPION_ICON, {
                     champion: participant.championName,
+                    gameVersion: version,
                   })}
                   width={20}
                   height={20}
@@ -209,7 +230,7 @@ const MatchTile: React.FC<{
           <div className="w-36">
             {team2.map((participant) => (
               <div
-                key={participant.summonerName}
+                key={`${participant.summonerName}${match.info.gameId}`}
                 className={`flex items-center space-x-1 w-64 ${
                   participant.puuid === lookedUpPlayer!.puuid ? "font-bold" : ""
                 }`}
@@ -217,6 +238,7 @@ const MatchTile: React.FC<{
                 <Image
                   src={formatUnicorn(CHAMPION_ICON, {
                     champion: participant.championName,
+                    gameVersion: version,
                   })}
                   width={20}
                   height={20}

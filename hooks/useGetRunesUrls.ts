@@ -1,21 +1,27 @@
 import { RUNES_DATA } from "../public/constants";
+import formatUnicorn from "format-unicorn/safe";
 
-type GetRunesUrlsType = (runeObject: {
-  description: string;
-  selections: {
-    perk: number;
-    var1: number;
-    var2: number;
-    var3: number;
-  }[];
-  style: number;
-}) => Promise<{
+type GetRunesUrlsType = (
+  runeObject: {
+    description: string;
+    selections: {
+      perk: number;
+      var1: number;
+      var2: number;
+      var3: number;
+    }[];
+    style: number;
+  },
+  version: string
+) => Promise<{
   styleUrl: string;
   runesUrls: string[];
 }>;
 
-const useGetRunesUrls: GetRunesUrlsType = async (runeObject) => {
-  const runesResponse = await fetch(RUNES_DATA);
+const useGetRunesUrls: GetRunesUrlsType = async (runeObject, version) => {
+  const runesResponse = await fetch(
+    formatUnicorn(RUNES_DATA, { gameVersion: version })
+  );
   const runesData = await runesResponse.json();
   const style = runesData.find((item: any) => item.id === runeObject.style);
 

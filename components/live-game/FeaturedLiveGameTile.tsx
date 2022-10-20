@@ -1,8 +1,9 @@
 import { LiveMatchParticipantType } from "../../types/summonerTypes";
 import Image from "next/image";
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useContext } from "react";
 import useGetChampionIconUrl from "../../hooks/useGetChampionIconUrl";
 import Link from "next/link";
+import VersionContext from "../../context/version-context";
 
 const LivePlayer: React.FC<{
   name: string;
@@ -10,9 +11,10 @@ const LivePlayer: React.FC<{
   image: string;
 }> = ({ name, champId, image }) => {
   const [championIcon, setChampionIcon] = useState("");
+  const version = useContext(VersionContext);
 
   const championIconUrlHandler = useCallback(async () => {
-    const championIconUrl: any = await useGetChampionIconUrl(champId);
+    const championIconUrl: any = await useGetChampionIconUrl(champId, version);
     setChampionIcon(championIconUrl);
   }, []);
 

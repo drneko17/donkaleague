@@ -1,63 +1,36 @@
 type GetSummonerSpellUrlType = (summonerId: number) => string;
 
 const useGetSummonerSpellUrl: GetSummonerSpellUrlType = (summonerId) => {
-  let summonerUrl: string;
-
   switch (summonerId) {
     case 21:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerBarrier.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerBarrier.png";
     case 1:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerBoost.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerBoost.png";
     case 14:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerDot.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerDot.png";
     case 3:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerExhaust.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerExhaust.png";
     case 4:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerFlash.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerFlash.png";
     case 6:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerHaste.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerHaste.png";
     case 7:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerHeal.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerHeal.png";
     case 13:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerMana.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerMana.png";
     case 30:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerPoroRecall.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerPoroRecall.png";
     case 31:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerPoroThrow.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerPoroThrow.png";
     case 11:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerSmite.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerSmite.png";
     case 32:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerSnowball.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerSnowball.png";
     case 12:
-      summonerUrl =
-        "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerTeleport.png";
-      break;
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerTeleport.png";
+    default:
+      return "http://ddragon.leagueoflegends.com/cdn/12.16.1/img/spell/SummonerTeleport.png";
   }
-  return summonerUrl!;
 };
 
 export default useGetSummonerSpellUrl;

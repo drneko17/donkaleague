@@ -2,9 +2,11 @@ import Image from "next/image";
 import formatUnicorn from "format-unicorn/safe";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useContext } from "react";
 
 import useGetEmblem from "../../hooks/useGetEmblem";
 import { PROFILE_IMAGE } from "../../public/constants";
+import VersionContext from "../../context/version-context";
 
 const SummonerCard: React.FC<{
   data: {
@@ -24,11 +26,13 @@ const SummonerCard: React.FC<{
   classes: string;
   isLive: boolean;
 }> = ({ data, classes, isLive }) => {
+  const version = useContext(VersionContext);
   const router = useRouter();
   const { summoner, server } = router.query;
   const emblemUrl = useGetEmblem(data.tier);
   const pfpUrl = formatUnicorn(PROFILE_IMAGE, {
     iconId: data.profileIconId,
+    gameVersion: version,
   });
   const winRatio = (data.wins / (data.losses + data.wins)) * 100;
   // console.log(data.id);
