@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 
 import { CHAMPION_ICON, ITEM_IMAGE } from "../../public/constants";
 import { MatchDataType } from "../../types/summonerTypes";
-import useGetSummonerSpellUrl from "../../hooks/useGetSummonerSpellUrl";
 import useGetSummonerSPellUrlInABetterWay from "../../hooks/useGetSummonerSpellUrlInABetterWay";
 import useGetRunesUrls from "../../hooks/useGetRunesUrls";
 import useGetRegion from "../../hooks/useGetRegion";
@@ -49,6 +48,8 @@ const MatchTile: React.FC<{
     );
     setSecondaryTree(resultSecondary);
   }, []);
+
+  console.log(lookedUpPlayer);
 
   const fetchSummonerSpellsUrlsHandler = useCallback(async () => {
     const result1 = await useGetSummonerSPellUrlInABetterWay(

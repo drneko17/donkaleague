@@ -53,6 +53,8 @@ const useGetRunesByIdArray: GetRunesByIdArray = async (runeIds, version) => {
       result.push(foundRune);
     }
   }
+  console.log(runes);
+
   return result;
 };
 

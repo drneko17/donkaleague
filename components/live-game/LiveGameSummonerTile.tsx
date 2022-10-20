@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState, useContext } from "react";
 
 import useGetChampionIconUrl from "../../hooks/useGetChampionIconUrl";
-import useGetSummonerSpellUrl from "../../hooks/useGetSummonerSpellUrl";
+import useGetSummonerSPellUrlInABetterWay from "../../hooks/useGetSummonerSpellUrlInABetterWay";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,6 +23,8 @@ const LiveGameSummonerTile: React.FC<{
   const router = useRouter();
   const { summonerId } = data;
 
+  const [summonerSpell1Url, setSummonerSpell1Url] = useState("");
+  const [summonerSpell2Url, setSummonerSpell2Url] = useState("");
   const [championIcon, setChampionIcon] = useState("");
   const [emblemUrl, setEmblemUrl] = useState("");
   const [runes, setRunes] = useState([
@@ -51,8 +53,18 @@ const LiveGameSummonerTile: React.FC<{
     hotStreak: false,
   });
 
-  const summonerSpell1Url = useGetSummonerSpellUrl(data.spell1Id);
-  const summonerSpell2Url = useGetSummonerSpellUrl(data.spell2Id);
+  const summonerSpellsUrlHandler = useCallback(async () => {
+    const result1 = await useGetSummonerSPellUrlInABetterWay(
+      data.spell1Id,
+      version
+    );
+    setSummonerSpell1Url(result1);
+    const result2 = await useGetSummonerSPellUrlInABetterWay(
+      data.spell2Id,
+      version
+    );
+    setSummonerSpell2Url(result2);
+  }, []);
 
   const championIconUrlHandler = useCallback(async () => {
     const championIconUrl: any = await useGetChampionIconUrl(
@@ -61,6 +73,8 @@ const LiveGameSummonerTile: React.FC<{
     );
     setChampionIcon(championIconUrl);
   }, []);
+
+  // console.log(data);
 
   const runesHandler = useCallback(async () => {
     const foundRunes = await useGetRunesByIdArray(data.perks.perkIds, version);
@@ -77,7 +91,6 @@ const LiveGameSummonerTile: React.FC<{
     });
 
     const responseData = await response.json();
-    console.log(responseData);
     let soloNumber: number;
     if (
       responseData.leagueData.length === 2 ||
@@ -92,6 +105,7 @@ const LiveGameSummonerTile: React.FC<{
   }, []);
 
   useEffect(() => {
+    summonerSpellsUrlHandler();
     championIconUrlHandler();
     runesHandler();
     summonerDataHandler();
@@ -109,6 +123,7 @@ const LiveGameSummonerTile: React.FC<{
         </Link>
         <div className="flex items-center space-x-1">
           <Image
+            placeholder="empty"
             src={championIcon}
             width={64}
             height={64}
@@ -117,6 +132,7 @@ const LiveGameSummonerTile: React.FC<{
           />
           <div className="flex flex-col">
             <Image
+              placeholder="empty"
               src={summonerSpell1Url}
               width={32}
               height={32}
@@ -124,6 +140,7 @@ const LiveGameSummonerTile: React.FC<{
               layout="fixed"
             />
             <Image
+              placeholder="empty"
               src={summonerSpell2Url}
               width={32}
               height={32}
@@ -138,7 +155,12 @@ const LiveGameSummonerTile: React.FC<{
           </div>
         ) : (
           <div className="flex flex-col items-center mt-4">
-            <Image src={emblemUrl} width={128} height={128} />
+            <Image
+              placeholder="empty"
+              src={emblemUrl}
+              width={128}
+              height={128}
+            />
             <div className="">
               {thisSummonerData.tier} {thisSummonerData.rank} -{" "}
               {thisSummonerData.leaguePoints} LP
@@ -161,8 +183,9 @@ const LiveGameSummonerTile: React.FC<{
         <div className="flex items-center space-x-2 py-4">
           <div className="flex flex-col items-center space-y-1">
             {runes.slice(0, 1).map((rune) => (
-              <div className="drop-shadow-lg">
+              <div key={rune.id + data.summonerId} className="drop-shadow-lg">
                 <Image
+                  placeholder="empty"
                   src={`https://ddragon.canisback.com/img/${rune.icon}`}
                   width={48}
                   height={48}
@@ -172,8 +195,9 @@ const LiveGameSummonerTile: React.FC<{
               </div>
             ))}
             {runes.slice(1, 4).map((rune) => (
-              <div className="drop-shadow-lg">
+              <div key={rune.id + data.summonerId} className="drop-shadow-lg">
                 <Image
+                  placeholder="empty"
                   src={`https://ddragon.canisback.com/img/${rune.icon}`}
                   width={32}
                   height={32}
@@ -185,8 +209,9 @@ const LiveGameSummonerTile: React.FC<{
           </div>
           <div className="flex flex-col items-center space-y-1">
             {runes.slice(4, 6).map((rune) => (
-              <div className="drop-shadow-lg">
+              <div key={rune.id + data.summonerId} className="drop-shadow-lg">
                 <Image
+                  placeholder="empty"
                   src={`https://ddragon.canisback.com/img/${rune.icon}`}
                   width={32}
                   height={32}

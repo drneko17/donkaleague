@@ -1,5 +1,6 @@
 import { RUNES_DATA } from "../public/constants";
 import formatUnicorn from "format-unicorn/safe";
+import { RuneDataType, RuneType } from "../types/summonerTypes";
 
 type GetRunesUrlsType = (
   runeObject: {
