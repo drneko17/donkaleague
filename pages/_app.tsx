@@ -1,6 +1,4 @@
 import type { AppProps } from "next/app";
-import Head from "next/head";
-
 import Layout from "../components/navigation/Layout";
 import { VersionContextProvider } from "../context/version-context";
 
@@ -20,5 +18,3 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
-
-//viewport-fit=cover

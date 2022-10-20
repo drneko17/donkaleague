@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const VersionContext = React.createContext("");
+
+const getVersion = async () => {
+  const response = await fetch(
+    "https://ddragon.leagueoflegends.com/api/versions.json"
+  );
+  const data = await response.json();
+  return data[0];
+};
+let myVersion = "";
+getVersion().then((data) => (myVersion = data));
 
 export const VersionContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [version, setVersion] = useState("12.16.1");
-
-  useEffect(() => {
-    fetch("https://ddragon.leagueoflegends.com/api/versions.json")
-      .then((res) => res.json())
-      .then((data) => setVersion(data[0]));
-  }, []);
-
   return (
-    <VersionContext.Provider value={version}>
+    <VersionContext.Provider value={myVersion}>
       {children}
     </VersionContext.Provider>
   );

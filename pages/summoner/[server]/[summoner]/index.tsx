@@ -1,18 +1,17 @@
 import { NextPage, GetServerSideProps } from "next";
-import MatchHistory from "../../../../components/summoner-components/MatchHistory";
-import SummonerCard from "../../../../components/summoner-components/SummonerCard";
-
+import { useContext } from "react";
 import formatUnicorn from "format-unicorn/safe";
 
-import { LIVE_GAME } from "../../../../public/constants";
+import MatchHistory from "../../../../components/summoner-components/MatchHistory";
+import SummonerCard from "../../../../components/summoner-components/SummonerCard";
+import SummonerNotFound from "../../../../components/shared/SummonerNotFound";
+import VersionContext from "../../../../context/version-context";
 
 import useGetRegion from "../../../../hooks/useGetRegion";
 import useGetSummonerData from "../../../../hooks/useGetSummonerData";
-import {
-  FullSummonerDataType,
-  LiveMatchType,
-} from "../../../../types/summonerTypes";
-import SummonerNotFound from "../../../../components/shared/SummonerNotFound";
+
+import { LIVE_GAME } from "../../../../public/constants";
+import { FullSummonerDataType } from "../../../../types/summonerTypes";
 
 const headersConfig = {
   "User-Agent":
@@ -29,6 +28,9 @@ const SummonerProfile: NextPage<{
   isLive?: boolean;
   status: number;
 }> = ({ data, server, isLive, status }) => {
+  const version = useContext(VersionContext);
+  console.log(version);
+
   let sch;
 
   if (status !== 404) {
