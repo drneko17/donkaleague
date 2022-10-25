@@ -49,7 +49,7 @@ const MatchTile: React.FC<{
     setSecondaryTree(resultSecondary);
   }, []);
 
-  console.log(lookedUpPlayer);
+  // console.log(lookedUpPlayer);
 
   const fetchSummonerSpellsUrlsHandler = useCallback(async () => {
     const result1 = await useGetSummonerSPellUrlInABetterWay(
